@@ -22,7 +22,7 @@ font pango:monospace 8
 #font pango:DejaVu Sans Mono 8
 
 # Set monitor positions
-exec --no-startup-id xrandr --output DP-2 --auto --left-of DVI-D-1
+exec --no-startup-id xrandr --output DVI-D-0 --auto --left-of HDMI-A-0
 
 # Startup comptom
 exec --no-startup-id picom -CGb
@@ -50,7 +50,7 @@ for_window [class="Gnome-terminal"] floating enable
 #exec --no-startup-id nitrogen --set-scaled
 exec --no-startup-id nitrogen --restore
 
-# Startup tilda terminal 
+# Startup tilda terminal hidden
 exec --no-startup-id tilda -h
 
 # Start XDG autostart .desktop files using dex. See also
@@ -118,10 +118,10 @@ bindsym $sup+Shift+$up move up
 bindsym $sup+Shift+$right move right
 
 # alternatively, you can use the cursor keys:
-bindsym $sup+Shift+Left move left
-bindsym $sup+Shift+Down move down
-bindsym $sup+Shift+Up move up
-bindsym $sup+Shift+Right move right
+# bindsym $sup+Shift+Left move left
+# bindsym $sup+Shift+Down move down
+# bindsym $sup+Shift+Up move up
+# bindsym $sup+Shift+Right move right
 
 # split in horizontal orientation
 bindsym $mod+h split h

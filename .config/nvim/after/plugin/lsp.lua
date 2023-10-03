@@ -45,20 +45,16 @@ lsp_config.vuels.setup {
     }
 }
 
-lsp_config.pyright.setup {
-    settings = {
-        python = {
-            venvPath = "/home/lozerd/_Projects/_PyCharm/todo_app-backend",
-        }
-    }
-}
-
 lsp_config.pylsp.setup {
     settings = {
         pylsp = {
             plugins = {
                 pycodestyle = {
                     maxLineLength = 120
+                },
+                rope_autoimport = {
+                    enabled = false,
+                    memory = false
                 }
             }
         }
