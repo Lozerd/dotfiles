@@ -38,8 +38,15 @@ keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>/gI<Left><Left><Left>]])
 
 keymap.set("x", "<leader>p", [["_dP]])
 
-keymap.set({"n", "v"}, "<leader>y", [["+y]])
+keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 keymap.set("n", "<leader>Y", [["+Y]])
 
 keymap.set("n", "Q", "<nop>")
-keymap.set("n", "<leader>f", vim.lsp.buf.format)
+keymap.set("n", "<leader>f", function()
+    vim.lsp.buf.format({
+        timeout_ms = 2000,
+        async = true
+    })
+end)
+
+--keymap.set("n", "<C-S-_", "ggVGzc")

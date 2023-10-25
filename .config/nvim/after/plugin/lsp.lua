@@ -84,7 +84,10 @@ function on_attach(client, bufnr)
     vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-    vim.keymap.set("n", "<leader><S-r>", function() vim.lsp.buf.rename() end, opts)
+    vim.keymap.set("v", "<leader><S-r>", function() vim.lsp.buf.rename() end, opts)
+
+    -- git-blame
+    vim.keymap.set("n", "<leader>gbo", "<cmd>GitBlameOpenCommitURL<CR>", opts)
 end
 
 lsp.on_attach(on_attach)

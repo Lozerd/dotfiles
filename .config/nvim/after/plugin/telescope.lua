@@ -19,5 +19,8 @@ vim.keymap.set("n", "<leader>pf", function()
         hidden = true
     })
 end, { desc = "[P]roject [F]iles" })
+vim.keymap.set("n", "<leader>phf", function()
+    builtin.live_grep({ additional_args = { "-u" } })
+end, { desc = "[P]roject [H]idden [F]iles" })
 
 vim.keymap.set("n", "<leader>ps", builtin.live_grep, { desc = "[P]roject [S]trings" })
