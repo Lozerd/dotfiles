@@ -20,6 +20,7 @@ return require("packer").startup(function(use)
         -- or                            , branch = "0.1.x",
         requires = {
             { "nvim-lua/plenary.nvim" },
+            { "nvim-telescope/telescope-dap.nvim" },
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 run = "make",
@@ -56,4 +57,18 @@ return require("packer").startup(function(use)
             { 'L3MON4D3/LuaSnip' },     -- Required
         }
     }
+
+    -- git blame
+    use("f-person/git-blame.nvim")
+
+    -- debugger
+    use {
+        "rcarriga/nvim-dap-ui",
+        requires = {
+            { "mfussenegger/nvim-dap" }
+        }
+    }
+    use("theHamsta/nvim-dap-virtual-text")
+    use("folke/neodev.nvim")
+    use("mfussenegger/nvim-dap-python")
 end)

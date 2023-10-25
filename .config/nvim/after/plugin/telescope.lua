@@ -3,7 +3,8 @@ local builtin = require("telescope.builtin")
 
 telescope.setup()
 
-pcall(telescope.load_extension, "fzf")
+telescope.load_extension("fzf")
+telescope.load_extension("dap")
 
 vim.keymap.set("n", "<leader><C-e>", builtin.oldfiles, { desc = "[C-e] View recent files" })
 vim.keymap.set("n", "<leader><space>", builtin.buffers, { desc = "[ ] Find existing buffers" })
