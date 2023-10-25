@@ -70,52 +70,37 @@ dap.adapters.python = {
 
 -- Get DJANGO_SETTINGS_MODULE
 local get_dsm = function()
+    local is_projects = vim.trim(vim.fn.system("pwd")):find(os.getenv("HOME") .. "/_Projects")
     local dsm_path = os.getenv("DJANGO_SETTINGS_MODULE")
 
+    if not is_projects then
+        print("Skipping get_dsm, not a projects dir")
+        return nil
+    end
+
     if not dsm_path then
-        local arguments = "!find * -type f -name 'dev.py' -not -path 'env/*'"
-        dsm_path = vim.cmd(arguments)
+        local arguments = "find * -type f -name 'dev.py' -not -path 'env/*'"
+        dsm_path = vim.fn.system(arguments)
 
         if dsm_path == "" then
             local substituted_arguments, _ = string.gsub(arguments, "dev.py", "settings.py")
-            dsm_path = vim.cmd(substituted_arguments)
+            dsm_path = vim.fn.system(substituted_arguments)
         end
 
         dsm_path = string.gsub(dsm_path or "", "/", ".")
     end
 
-    return "--settings=" .. dsm_path
+    return vim.trim("--settings=" .. dsm_path:sub(1, dsm_path:len() - 4))
 end
-
--- dap.configurations.django = {
---     type = "python",
---     request = "launch",
---     name = "Django debug session",
---     program = function()
---         return vim.fn.getcwd() .. "/manage.py"
---     end,
---     args = {
---         "runserver",
---         -- get_dsm(),
---     }
--- })
 
 table.insert(dap.configurations.python, {
     type = "python",
     request = "launch",
     name = "Django debug session",
-    -- program = function()
-    --     print(vim.fn.getcwd() .. "/manage.py")
-    --     return vim.fn.getcwd() .. "/manage.py"
-    -- end,
     -- pythonPath = function()
-    --     print(vim.fn.getcwd() .. "/env/bin/python")
-    --     return vim.fn.getcwd() .. "/env/bin/python"
+    --     local debugpy_dir = os.getenv("HOME") .. "/.virtualenvs/debugpy/bin/python"
+    --     return os.getenvjj
     -- end,
-    --pythonPath = function()
-    --    return os.getenv("HOME") .. "/.virtualenvs/debugpy/bin/python"
-    --    -- return vim.fn.getcwd() .. "/env/bin/python"
-    --end,
     program = function()
         return vim.fn.getcwd() .. "/manage.py"
     end,
@@ -123,6 +108,6 @@ table.insert(dap.configurations.python, {
     args = {
         "runserver",
         "--noreload",
-        -- get_dsm(),
+        get_dsm(),
     }
 })
