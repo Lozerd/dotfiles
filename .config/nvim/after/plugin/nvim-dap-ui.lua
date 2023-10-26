@@ -17,12 +17,24 @@ end
 ------------------
 -- Dap mappings --
 ------------------
+
+-- function key maps differently on different keyboards
+-- <F1> throught <F12> maps normally
+-- <S-F1> through <S-F12> maps to <F13> through <F24>
+-- <C-F1> through <C-F12> maps to <F25> through <F36>
+-- <C-F1> through <C-F12> maps to <F49> through <F60>
+
 vim.keymap.set("n", "<F9>", dap.continue)
+vim.keymap.set("n", "<S-F9>", dap.restart)
+vim.keymap.set("n", "<F21>", dap.restart)
 vim.keymap.set("n", "<F8>", dap.step_over)
 vim.keymap.set("n", "<F7>", dap.step_into)
 vim.keymap.set("n", "<S-F8>", dap.step_out)
+vim.keymap.set("n", "<F20>", dap.step_out)
 vim.keymap.set("n", "<C-F8>", dap.toggle_breakpoint)
+vim.keymap.set("n", "<F32>", dap.toggle_breakpoint)
 vim.keymap.set({ "n", "v" }, "<A-F8>", dapui.eval)
+vim.keymap.set({ "n", "v" }, "<F56>", dapui.eval)
 
 vim.keymap.set("n", "<leader>lp", function()
     dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
@@ -47,20 +59,12 @@ end)
 -- Dap adapters  --
 -------------------
 local dpy = require("dap-python")
--- dpy.setup("~/.virtualenvs/debugpy/bin/python")
-dpy.setup(vim.fn.getcwd() .. "/env/bin/python")
+dpy.setup("~/.virtualenvs/debugpy/bin/python")
 
 -- Python
 dap.adapters.python = {
     type = "executable",
-    --command = function()
-    --    local envPath = os.getenv("VIRTUAL_ENV")
-    --    local dpyPath = os.getenv("HOME") .. "/virtualenvs/debugpy/bin/python"
-    --end,
-    -- command = os.getenv("VIRTUAL_ENV") .. "/bin/python",
-    --
-    command = vim.fn.getcwd() .. "/env/bin/python",
-    -- command = os.getenv("HOME") .. "/.virtualenvs/debugpy/bin/python",
+    command = os.getenv("HOME") .. "/.virtualenvs/debugpy/bin/python",
     args = { "-m", "debugpy.adapter" },
 }
 
@@ -96,17 +100,18 @@ end
 table.insert(dap.configurations.python, {
     type = "python",
     request = "launch",
-    name = "Django debug session",
-    -- pythonPath = function()
-    --     local debugpy_dir = os.getenv("HOME") .. "/.virtualenvs/debugpy/bin/python"
-    --     return os.getenvjj
-    -- end,
-    program = function()
-        return vim.fn.getcwd() .. "/manage.py"
-    end,
+    name = "Django",
+    pythonPath = vim.fn.getcwd() .. "/env/bin/python",
+    program = vim.fn.getcwd() .. "/manage.py",
     django = true,
+    justMyCode = false,
+    autoReload = {
+        enabled = true
+    },
     args = {
         "runserver",
+        -- to enable django's autoreload, need to install debugpy
+        -- directly into django's venv
         "--noreload",
         get_dsm(),
     }
