@@ -1,9 +1,46 @@
 local dap, dapui = require("dap"), require("dapui")
+local telescope = require("telescope")
 
-dapui.setup()
+dapui.setup({
+    layouts = {
+        {
+            elements = {
+                {
+                    id = "repl",
+                    size = 1
+                },
+            },
+            position = "bottom",
+            size = 10
+        },
+        {
+            id = "dapuiFunctional",
+            elements = {
+                {
+                    id = "watches",
+                    size = 0.35
+                },
+                {
+                    id = "scopes",
+                    size = 0.5
+                },
+                {
+                    id = "stacks",
+                    size = 0.15
+                },
+            },
+            position = "bottom",
+            size = 10
+        }
+    },
+})
+
+------------------------
+-- Dap configurations --
+------------------------
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
+    dapui.open({ layout = 2 })
 end
 
 dap.listeners.after.event_terminated["dapui_config"] = function()
@@ -22,37 +59,40 @@ end
 -- <F1> throught <F12> maps normally
 -- <S-F1> through <S-F12> maps to <F13> through <F24>
 -- <C-F1> through <C-F12> maps to <F25> through <F36>
--- <C-F1> through <C-F12> maps to <F49> through <F60>
+-- <C-A-F1> through <C-A-F12> maps to <F49> through <F60>
 
 vim.keymap.set("n", "<F9>", dap.continue)
 vim.keymap.set("n", "<S-F9>", dap.restart)
 vim.keymap.set("n", "<F21>", dap.restart)
 vim.keymap.set("n", "<F8>", dap.step_over)
 vim.keymap.set("n", "<F7>", dap.step_into)
+vim.keymap.set("n", "<S-F7>", dap.run_to_cursor)
+vim.keymap.set("n", "<F19>", dap.run_to_cursor)
 vim.keymap.set("n", "<S-F8>", dap.step_out)
 vim.keymap.set("n", "<F20>", dap.step_out)
 vim.keymap.set("n", "<C-F8>", dap.toggle_breakpoint)
 vim.keymap.set("n", "<F32>", dap.toggle_breakpoint)
+vim.keymap.set("n", "<C-S-F8>", function()
+    return telescope.extensions.dap.list_breakpoints()
+end)
 vim.keymap.set({ "n", "v" }, "<A-F8>", dapui.eval)
 vim.keymap.set({ "n", "v" }, "<F56>", dapui.eval)
+vim.keymap.set("n", "<leader>dr", function()
+    dapui.close()
+    return dapui.open({ layout = 1 })
+end)
+vim.keymap.set("n", "<leader>dv", function()
+    dapui.close()
+    return dapui.open({ layout = 2 })
+end)
 
-vim.keymap.set("n", "<leader>lp", function()
-    dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
-end)
-vim.keymap.set("n", "<leader>dr", dap.repl.open)
-vim.keymap.set({ "n", "v" }, "<leader>dh", function()
-    require("dap.ui.widgets").hover()
-end)
-vim.keymap.set({ "n", "v" }, "<leader>dp", function()
-    require("dap.ui.widgets").preview()
-end)
+-----------------
+-- Dap widgets --
+-----------------
+
 vim.keymap.set("n", "<leader>df", function()
     local widgets = require("dap.ui.widgets")
     widgets.centered_float(widgets.frames)
-end)
-vim.keymap.set("n", "<leader>ds", function()
-    local widgets = require("dap.ui.widgets")
-    widgets.centered_float(widgets.scopes)
 end)
 
 -------------------
