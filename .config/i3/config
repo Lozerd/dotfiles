@@ -47,7 +47,8 @@ bindsym Print exec --no-startup-id "flameshot gui"
 focus_follows_mouse no
 
 # Open Gnome-terminal in floating mode
-for_window [class="Gnome-terminal"] floating enable
+# for_window [class="Gnome-terminal"] floating enable
+for_window [class="Alacritty"] floating enable
 
 # Set background picture
 #exec --no-startup-id nitrogen --set-scaled
@@ -89,7 +90,7 @@ set $right semicolon
 floating_modifier $mod
 
 # start a terminal
-bindsym $sup+Return exec i3-sensible-terminal
+bindsym $sup+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
