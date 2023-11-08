@@ -65,17 +65,44 @@ ZSH_THEME="fox"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+function cd() {
+  builtin cd "$@"
+
+  if [[ -z "$VIRTUAL_ENV" ]] ; then
+    ## If env folder is found then activate the vitualenv
+      if [[ -d ./env ]] ; then
+        source ./env/bin/activate
+      fi
+  else
+    ## check the current folder belong to earlier VIRTUAL_ENV folder
+    # if yes then do nothing
+    # else deactivate
+      parentdir="$(dirname "$VIRTUAL_ENV")"
+      if [[ "$PWD"/ != "$parentdir"/* ]] ; then
+        deactivate
+
+
+      if [[ -z "$VIRTUAL_ENV" ]] ; then
+        ## If env folder is found then activate the vitualenv
+          if [[ -d ./env ]] ; then
+            source ./env/bin/activate
+          fi
+        fi
+      fi
+  fi
+}
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
-    autoswitch_virtualenv
-    zsh-autosuggestions
-    zsh-history-substring-search
-    zsh-syntax-highlighting
+    git 
+    zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -108,3 +135,7 @@ source $ZSH/oh-my-zsh.sh
 ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
