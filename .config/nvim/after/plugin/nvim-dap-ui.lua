@@ -64,6 +64,7 @@ end
 vim.keymap.set("n", "<F9>", dap.continue)
 vim.keymap.set("n", "<S-F9>", dap.restart)
 vim.keymap.set("n", "<F21>", dap.restart)
+vim.keymap.set("n", "<C-F2>", dap.terminate)
 vim.keymap.set("n", "<F8>", dap.step_over)
 vim.keymap.set("n", "<F7>", dap.step_into)
 vim.keymap.set("n", "<S-F7>", dap.run_to_cursor)
@@ -154,5 +155,22 @@ table.insert(dap.configurations.python, {
         -- directly into django's venv
         "--noreload",
         get_dsm(),
+    }
+})
+
+
+table.insert(dap.configurations.python, {
+    type = "python",
+    request = "launch",
+    name = "FastApi",
+    pythonPath = vim.fn.getcwd() .. "/env/bin/python",
+    module = "uvicorn",
+    justMyCode = false,
+    autoReload = {
+        enable = true,
+    },
+    args = {
+        "app.main:app",
+        -- "--reload"
     }
 })
