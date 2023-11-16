@@ -138,39 +138,92 @@ local get_dsm = function()
     return vim.trim("--settings=" .. dsm_path:sub(1, dsm_path:len() - 4))
 end
 
-table.insert(dap.configurations.python, {
-    type = "python",
-    request = "launch",
-    name = "Django",
+local default_nvim_dap_python_opts = {
+    include_configs = true,
+    console = 'integratedTerminal',
     pythonPath = vim.fn.getcwd() .. "/env/bin/python",
-    program = vim.fn.getcwd() .. "/manage.py",
-    django = true,
     justMyCode = false,
-    autoReload = {
-        enabled = true
-    },
-    args = {
-        "runserver",
-        -- to enable django's autoreload, need to install debugpy
-        -- directly into django's venv
-        "--noreload",
-        get_dsm(),
-    }
-})
+}
 
+dap.configurations.python = {
 
-table.insert(dap.configurations.python, {
-    type = "python",
-    request = "launch",
-    name = "FastApi",
-    pythonPath = vim.fn.getcwd() .. "/env/bin/python",
-    module = "uvicorn",
-    justMyCode = false,
-    autoReload = {
-        enable = true,
+    {
+        type = "python",
+        request = "launch",
+        name = "Django",
+        pythonPath = vim.fn.getcwd() .. "/env/bin/python",
+        program = vim.fn.getcwd() .. "/manage.py",
+        django = true,
+        justMyCode = default_nvim_dap_python_opts.justMyCode,
+        autoReload = {
+            enabled = true
+        },
+        args = {
+            "runserver",
+            -- to enable django's autoreload, need to install debugpy
+            -- directly into django's venv
+            "--noreload",
+            get_dsm(),
+        }
     },
-    args = {
-        "app.main:app",
-        -- "--reload"
+    {
+        type = "python",
+        request = "launch",
+        name = "FastApi",
+        pythonPath = vim.fn.getcwd() .. "/env/bin/python",
+        module = "uvicorn",
+        justMyCode = default_nvim_dap_python_opts.justMyCode,
+        autoReload = {
+            enable = true,
+        },
+        args = {
+            "app.main:app",
+            -- "--reload"
+        }
+    },
+    {
+        type = 'python',
+        request = 'launch',
+        name = 'Launch file',
+        program = '${file}',
+        justMyCode = default_nvim_dap_python_opts.justMyCode,
+        console = default_nvim_dap_python_opts.console,
+        pythonPath = default_nvim_dap_python_opts.pythonPath,
+    },
+    {
+        type = 'python',
+        request = 'launch',
+        name = 'Launch file with arguments',
+        program = '${file}',
+        justMyCode = default_nvim_dap_python_opts.justMyCode,
+        args = function()
+            local args_string = vim.fn.input('Arguments: ')
+            return vim.split(args_string, " +")
+        end,
+        console = default_nvim_dap_python_opts.console,
+        pythonPath = default_nvim_dap_python_opts.pythonPath,
+    },
+    {
+        type = 'python',
+        request = 'attach',
+        name = 'Attach remote',
+        justMyCode = default_nvim_dap_python_opts.justMyCode,
+        connect = function()
+            local host = vim.fn.input('Host [127.0.0.1]: ')
+            host = host ~= '' and host or '127.0.0.1'
+            local port = tonumber(vim.fn.input('Port [5678]: ')) or 5678
+            return { host = host, port = port }
+        end,
+    },
+    {
+        type = 'python',
+        request = 'launch',
+        name = 'Run doctests in file',
+        module = 'doctest',
+        justMyCode = default_nvim_dap_python_opts.justMyCode,
+        args = { "${file}" },
+        noDebug = true,
+        console = default_nvim_dap_python_opts.console,
+        pythonPath = default_nvim_dap_python_opts.pythonPath,
     }
-})
+}
