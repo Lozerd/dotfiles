@@ -29,6 +29,15 @@ return require("packer").startup(function(use)
             }
         }
     }
+    use { "ibhagwan/fzf-lua",
+        -- optional for icon support
+        requires = { "nvim-tree/nvim-web-devicons" }
+    }
+    use { "kevinhwang91/nvim-bqf" }
+    use { 'junegunn/fzf', run = function()
+        vim.fn['fzf#install']()
+    end
+    }
     use {
         "nvim-treesitter/nvim-treesitter",
         requires = {

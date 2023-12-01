@@ -47,18 +47,28 @@ lsp_config.vuels.setup {
 }
 
 lsp_config.pylsp.setup {
+    cmd = { "pylsp", "-v", "--log-file", "/tmp/nvim-pylsp.log" },
     settings = {
         pylsp = {
             plugins = {
+                rope = { ropeFolder = "/home/lozerd/.ropeproject" },
                 pycodestyle = {
                     maxLineLength = 120
                 },
+                flake8 = {
+                    enabled = true
+                },
                 rope_autoimport = {
-                    enabled = false,
-                    memory = false
+                    enabled = true,
+                    memory = false,
+                    code_actions = { enabled = true },
+                    completions = { enabled = false },
+                },
+                rope_completion = {
+                    enabled = true
                 }
-            }
-        }
+            },
+        },
     }
 }
 
@@ -86,6 +96,12 @@ function on_attach(client, bufnr)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
     vim.keymap.set("v", "<leader><S-r>", function() vim.lsp.buf.rename() end, opts)
+    vim.keymap.set("n", "<C-A-O>",
+        function()
+            local filter = function(action) return action.kind == "source.organizeImports" end
+            vim.lsp.buf.code_action({ filter = filter, apply = true })
+        end, opts
+    )
 
     -- git-blame
     vim.keymap.set("n", "<leader>gbo", "<cmd>GitBlameOpenCommitURL<CR>", opts)

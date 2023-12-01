@@ -49,5 +49,3 @@ keymap.set("n", "<leader>f", function()
         async = true
     })
 end)
-
---keymap.set("n", "<C-S-_", "ggVGzc")
