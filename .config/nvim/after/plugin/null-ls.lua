@@ -26,15 +26,18 @@ if vim.fn.executable("djlint") == 1 then
     })
 end
 
-if vim.fn.executable("black") == 1 then
+if false and vim.fn.executable("black") == 1 then
     ld = true
     sources[#sources + 1] = formatting.black.with({
-        command = "black",
-        args = {
-            "--fast",
-            "--quiet",
-        }
-    })
+         command = "black",
+         args = {
+             "--fast",
+             "--quiet",
+             "--line-length",
+             "120",
+             "--skip-string-normalization",
+         }
+     })
 end
 -- ───────────────❰ end FORMATTING ❱──────────────── --
 -- ───────────────────────────────────────────────── --
