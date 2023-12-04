@@ -51,21 +51,26 @@ lsp_config.pylsp.setup {
     settings = {
         pylsp = {
             plugins = {
-                rope = { ropeFolder = "/home/lozerd/.ropeproject" },
-                pycodestyle = {
-                    maxLineLength = 120
+                rope = { ropeFolder = ".idea" },
+                autopep8 = { enabled = false },
+                pycodestyle = { enabled = true, maxLineLength = 120 },
+                black = {
+                    enabled = false,
+                    skip_string_normalization = true,
+                    line_length = 120
                 },
                 flake8 = {
-                    enabled = true
+                    enabled = true,
+                    maxLineLength = 120
                 },
                 rope_autoimport = {
                     enabled = true,
                     memory = false,
                     code_actions = { enabled = true },
-                    completions = { enabled = false },
+                    completions = { enabled = true },
                 },
                 rope_completion = {
-                    enabled = true
+                    enabled = false
                 }
             },
         },
@@ -95,7 +100,7 @@ function on_attach(client, bufnr)
     vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-    vim.keymap.set("v", "<leader><S-r>", function() vim.lsp.buf.rename() end, opts)
+    -- vim.keymap.set("v", "<leader><S-r>", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("n", "<C-A-O>",
         function()
             local filter = function(action) return action.kind == "source.organizeImports" end
