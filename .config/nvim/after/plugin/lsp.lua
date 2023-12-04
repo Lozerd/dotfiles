@@ -52,21 +52,19 @@ lsp_config.pylsp.setup {
         pylsp = {
             plugins = {
                 rope = { ropeFolder = "/home/lozerd/.ropeproject" },
-                pycodestyle = {
-                    maxLineLength = 120
-                },
-                flake8 = {
-                    enabled = true
-                },
+                jedi_completion = { enabled = true },
+                pycodestyle = { maxLineLength = 120 },
+                autopep8 = { enabled = true },
+                black = { enabled = true },
+                pyflakes = { enabled = false },
+                flake8 = { enabled = false },
                 rope_autoimport = {
                     enabled = true,
                     memory = false,
                     code_actions = { enabled = true },
-                    completions = { enabled = false },
+                    completions = { enabled = true },
                 },
-                rope_completion = {
-                    enabled = true
-                }
+                rope_completion = { enabled = true }
             },
         },
     }

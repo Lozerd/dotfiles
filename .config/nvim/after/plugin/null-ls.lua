@@ -8,8 +8,6 @@ local sources = {}
 -- ───────────────────────────────────────────────── --
 -- ─────────────────❰ FORMATTING ❱────────────────── --
 
-print()
-
 if vim.fn.executable("djlint") == 1 then
     ld = true
     sources[#sources + 1] = formatting.djlint.with({
@@ -28,6 +26,16 @@ if vim.fn.executable("djlint") == 1 then
     })
 end
 
+if vim.fn.executable("black") == 1 then
+    ld = true
+    sources[#sources + 1] = formatting.black.with({
+        command = "black",
+        args = {
+            "--fast",
+            "--quiet",
+        }
+    })
+end
 -- ───────────────❰ end FORMATTING ❱──────────────── --
 -- ───────────────────────────────────────────────── --
 
