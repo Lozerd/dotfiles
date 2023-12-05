@@ -1,1 +1,3 @@
-require("theprimeagen")
+require("lozerd")
+require("lozerd.lazy")
+
