@@ -53,10 +53,10 @@ lsp_config.pylsp.setup {
             plugins = {
                 rope = { ropeFolder = ".idea" },
                 jedi_completion = { enabled = true },
-                pycodestyle = { maxLineLength = 120 },
-                autopep8 = { enabled = false },
+                pycodestyle = { enabled = false, maxLineLength = 120 },
+                autopep8 = { enabled = true },
                 black = {
-                    enabled = true,
+                    enabled = false,
                     line_length = 120,
                     skip_string_normalization = true,
                     cache_config = true
