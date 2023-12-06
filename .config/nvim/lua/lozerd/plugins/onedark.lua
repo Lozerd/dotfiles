@@ -43,6 +43,6 @@ return {
             },
         }
         onedark.load()
-        vim.cmd.colorscheme "onedark"
-    end,
+	vim.cmd.colorscheme "onedark"
+    end
 }

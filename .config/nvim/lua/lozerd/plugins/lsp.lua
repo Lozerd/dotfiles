@@ -1,35 +1,85 @@
 return {
     'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
+    branch = 'v3.x',
     dependencies = {
         -- LSP Support
-        { 'neovim/nvim-lspconfig' },                 -- Required
-        { 'williamboman/mason.nvim' },               -- Optional
-        { 'williamboman/mason-lspconfig.nvim' },     -- Optional
+        { 'neovim/nvim-lspconfig' },             -- Required
+        { 'williamboman/mason.nvim' },           -- Optional
+        { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
         -- Autocompletion
-        { 'hrsh7th/nvim-cmp' },         -- Required
-        { 'hrsh7th/cmp-nvim-lsp' },     -- Required
-        { 'L3MON4D3/LuaSnip' },         -- Required
+        { 'hrsh7th/nvim-cmp' },     -- Required
+        { 'hrsh7th/cmp-nvim-lsp' }, -- Required
+        { 'L3MON4D3/LuaSnip' },     -- Required
     },
     config = function()
         local lsp = require("lsp-zero")
+        local lsp_config = require("lspconfig")
 
         lsp.preset("recommended")
 
-        lsp.ensure_installed({
-            "tsserver",
-            "vuels",
-            "cssls",
-            "pylsp"
+        require("mason").setup({})
+        require("mason-lspconfig").setup({
+            ensure_installed = {
+                "tsserver",
+                "vuels",
+                "cssls",
+                "pylsp"
+            },
+            handlers = {
+                vuels = function()
+                    lsp_config.vuels.setup {
+                        settings = {
+                            vuels = {
+                                vetur = {
+                                    options = {
+                                        tabSize = 4
+                                    }
+                                }
+                            }
+                        }
+                    }
+                end,
+                pylsp = function()
+                    lsp_config.pylsp.setup {
+                        cmd = { "pylsp", "-v", "--log-file", "/tmp/nvim-pylsp.log" },
+                        settings = {
+                            pylsp = {
+                                plugins = {
+                                    rope = { ropeFolder = ".ropeproject" },
+                                    jedi_completion = { enabled = true },
+                                    pycodestyle = { enabled = false, maxLineLength = 120 },
+                                    autopep8 = { enabled = true },
+                                    black = {
+                                        enabled = false,
+                                        line_length = 120,
+                                        skip_string_normalization = true,
+                                        cache_config = true
+                                    },
+                                    pyflakes = { enabled = false },
+                                    flake8 = { enabled = true, maxLineLength = 120, maxComplexity = 15 },
+                                    rope_autoimport = { enabled = true },
+                                    --     enabled = true,
+                                    --     memory = false,
+                                    --     code_actions = { enabled = true },
+                                    --     completions = { enabled = true },
+                                    -- },
+                                    -- rope_completion = { enabled = true }
+                                },
+                            },
+                        },
+                        on_attach = on_attach
+                    }
+                end
+            }
         })
 
-        lsp.nvim_workspace()
+        -- lsp.nvim_workspace()
 
         local cmp = require("cmp")
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
-        local cmp_mappings = lsp.defaults.cmp_mappings({
+        local cmp_mappings = cmp.mapping.preset.insert({
             ["<C-Space>"] = cmp.mapping.complete(),
             ["<C-e>"] = cmp.mapping.close(),
             ["<Tab>"] = cmp.mapping.confirm({
@@ -40,66 +90,16 @@ return {
             ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
         })
 
-        --cmp_mappings["<Tab>"] = nil
         cmp_mappings["<S-Tab>"] = nil
-
-        lsp.setup_nvim_cmp({
+        cmp.setup({
             mapping = cmp_mappings
         })
 
-        local lsp_config = require("lspconfig")
+        --cmp_mappings["<Tab>"] = nil
 
-        lsp_config.vuels.setup {
-            settings = {
-                vuels = {
-                    vetur = {
-                        options = {
-                            tabSize = 4
-                        }
-                    }
-                }
-            }
-        }
-
-        lsp_config.pylsp.setup {
-            cmd = { "pylsp", "-v", "--log-file", "/tmp/nvim-pylsp.log" },
-            settings = {
-                pylsp = {
-                    plugins = {
-                        rope = { ropeFolder = ".idea" },
-                        jedi_completion = { enabled = true },
-                        pycodestyle = { enabled = false, maxLineLength = 120 },
-                        autopep8 = { enabled = true },
-                        black = {
-                            enabled = false,
-                            line_length = 120,
-                            skip_string_normalization = true,
-                            cache_config = true
-                        },
-                        pyflakes = { enabled = false },
-                        flake8 = { enabled = true },
-                        rope_autoimport = {
-                            enabled = true,
-                            memory = false,
-                            code_actions = { enabled = true },
-                            completions = { enabled = true },
-                        },
-                        rope_completion = { enabled = true }
-                    },
-                },
-            }
-        }
-
-
-        lsp.set_preferences({
-            suggest_lsp_servers = false,
-            sign_icons = {
-                error = 'E',
-                warn = 'W',
-                hint = 'H',
-                info = 'I'
-            },
-        })
+        -- lsp.setup_nvim_cmp({
+        --     mapping = cmp_mappings
+        -- })
 
         function on_attach(client, bufnr)
             local opts = { buffer = bufnr, remap = false }
@@ -124,6 +124,16 @@ return {
             -- git-blame
             vim.keymap.set("n", "<leader>gbo", "<cmd>GitBlameOpenCommitURL<CR>", opts)
         end
+
+        lsp.set_preferences({
+            suggest_lsp_servers = false,
+            sign_icons = {
+                error = 'E',
+                warn = 'W',
+                hint = 'H',
+                info = 'I'
+            },
+        })
 
         lsp.on_attach(on_attach)
 
