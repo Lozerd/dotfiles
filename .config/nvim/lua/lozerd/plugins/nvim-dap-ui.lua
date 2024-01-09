@@ -145,7 +145,7 @@ return {
         local default_nvim_dap_python_opts = {
             include_configs = true,
             console = 'integratedTerminal',
-            pythonPath = vim.fn.getcwd() .. "/env/bin/python",
+            -- pythonPath = vim.fn.getcwd() .. "/env/bin/python",
             justMyCode = false,
         }
 
