@@ -8,10 +8,11 @@ return {
         local lspconfig = require("lspconfig")
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-        function on_attach(client, bufnr)
+        function on_attach(bufnr)
             local opts = { buffer = bufnr, remap = false }
 
             vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+            vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts)
             vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
             vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
             vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
@@ -20,7 +21,7 @@ return {
             vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
             vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
             vim.keymap.set("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-            vim.keymap.set("v", "<leader><S-r>", function() vim.lsp.buf.rename() end, opts)
+            vim.keymap.set({ "n", "v" }, "<leader>r", function() vim.lsp.buf.rename() end, opts)
             vim.keymap.set("n", "<M-CR>", function()
                 vim.lsp.buf.code_action({ context = { only = { "quickfix" } } })
             end, opts)
@@ -33,6 +34,14 @@ return {
             vim.keymap.set("n", "<leader>gbo", "<cmd>GitBlameOpenCommitURL<CR>", opts)
         end
 
+        vim.api.nvim_create_autocmd('LspAttach', {
+            group = vim.api.nvim_create_augroup('LozerdLspConfig', {}),
+            callback = function(ev)
+                vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+                on_attach(ev.bufnr)
+            end
+        })
+
         local capabilities = cmp_nvim_lsp.default_capabilities()
 
         local signs = { Error = " ", Warn = " ", Hint = "󰌶", Info = " " }
@@ -41,7 +50,7 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
-        local flake8_config_dir = function ()
+        local flake8_config_dir = function()
             local dir = vim.fn.getcwd() .. "/tox.ini"
             if vim.fn.filereadable(dir) then
                 return dir
@@ -50,9 +59,9 @@ return {
             end
         end
         local disabled = { enabled = false }
+
         lspconfig["pylsp"].setup({
             capabilities = capabilities,
-            on_attach = on_attach,
             cmd = { "pylsp", "-v", "--log-file", "/tmp/nvim-pylsp.log" },
             settings = {
                 pylsp = {
@@ -72,16 +81,18 @@ return {
                         black = disabled,
                         jedi_completion = { enabled = true },
                         rope_autoimport = {
-                            enabled = true,
+                            enabled = false,
                             memory = false,
                             code_actions = { enabled = true },
                             completions = { enabled = true },
                         },
-                        rope_completion = { enabled = true }
+                        rope_completion = { enabled = false }
                     },
                 },
             },
         })
+
+        lspconfig["tsserver"].setup({})
 
         lspconfig["vuels"].setup({
             settings = {
@@ -97,7 +108,6 @@ return {
 
         lspconfig["lua_ls"].setup({
             capabilities = capabilities,
-            on_attach = on_attach,
             settings = { -- custom settings for lua
                 Lua = {
                     -- make the language server recognize "vim" global

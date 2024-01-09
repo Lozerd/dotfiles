@@ -43,9 +43,9 @@ keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 keymap.set("n", "<leader>Y", [["+Y]])
 
 keymap.set("n", "Q", "<nop>")
--- keymap.set("n", "<leader>f", function()
---     vim.lsp.buf.format({
---         timeout_ms = 2000,
---         async = true
---     })
--- end)
+keymap.set("n", "<leader>f", function()
+    vim.lsp.buf.format({
+        timeout_ms = 2000,
+        async = true
+    })
+end)
