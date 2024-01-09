@@ -41,6 +41,14 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
+        local flake8_config_dir = function ()
+            local dir = vim.fn.getcwd() .. "/tox.ini"
+            if vim.fn.filereadable(dir) then
+                return dir
+            else
+                return nil
+            end
+        end
         local disabled = { enabled = false }
         lspconfig["pylsp"].setup({
             capabilities = capabilities,
@@ -51,11 +59,16 @@ return {
                     plugins = {
                         rope = { ropeFolder = ".ropeproject" },
                         pydocstyle = disabled,
-                        pycodestyle = disabled,
                         pyflakes = disabled,
                         pylint = disabled,
-                        flake8 = { enabled = true, maxLineLength = 120, maxComplexity = 15 },
-                        autopep8 = { enabled = true },
+                        pycodestyle = { enabled = false, maxLineLength = 120 },
+                        flake8 = {
+                            enabled = true,
+                            config = flake8_config_dir(),
+                            maxLineLength = 120,
+                            maxComplexity = 15
+                        },
+                        autopep8 = { enabled = true, maxLineLength = 120 },
                         black = disabled,
                         jedi_completion = { enabled = true },
                         rope_autoimport = {

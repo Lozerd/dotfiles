@@ -34,9 +34,9 @@ return {
                 "tsserver",
                 "vuels",
                 "cssls",
+                "lua_ls",
                 "pylsp",
-                "autopep8",
-                "flake8"
+                "djlint",
             },
         })
 

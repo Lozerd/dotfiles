@@ -14,9 +14,8 @@ return {
                 "tsserver",
                 "vuels",
                 "cssls",
+                "lua_ls",
                 "pylsp",
-                "autopep8",
-                "flake8"
             },
         })
 
@@ -44,9 +43,9 @@ return {
                 },
             })
         end
+
         -- ───────────────❰ end FORMATTING ❱──────────────── --
         -- ───────────────────────────────────────────────── --
-
 
         -- ───────────────────────────────────────────────── --
         -- ─────────────────❰ DIAGNOSTICS ❱───────────────── --
@@ -57,7 +56,6 @@ return {
                 args = { vim.fn.expand("%") }
             })
         end
-
 
         null_ls.setup({
             sources = sources
