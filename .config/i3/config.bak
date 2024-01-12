@@ -13,13 +13,10 @@
 set $mod Mod1
 set $sup Mod4
 
-# Remove window title bar
-default_border pixel 2
-default_floating_border pixel 2
-
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Iosevka 8
+font pango:monospace 8
+
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
@@ -28,7 +25,7 @@ font pango:Iosevka 8
 exec --no-startup-id xrandr --output DP-2 --auto --left-of DVI-D-1
 
 # Startup comptom
-exec --no-startup-id picom -CGb --experimental-backends
+exec --no-startup-id picom -CGb
 
 # Set keyboard layout
 exec --no-startup-id "setxkbmap -layout us,ru -option grp:win_space_toggle"
@@ -55,22 +52,10 @@ for_window [class="Alacritty"] floating enable
 
 # Set background picture
 #exec --no-startup-id nitrogen --set-scaled
-# exec --no-startup-id nitrogen --restore
-exec --no-startup-id feh --bg-fill $(head -n 2 .config/nitrogen/bg-saved.cfg | tail -n 1 | cut -c 6-) &
-
-# Colors
-client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
-client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+exec --no-startup-id nitrogen --restore
 
 # Startup tilda terminal hidden
 exec --no-startup-id tilda -hc 'tmux new -AD -s tilda'
-
-# Gaps setup
-gaps outer 10
-gaps inner 10
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -265,13 +250,11 @@ mode "$mode_system" {
 
 bindsym $mod+Pause mode "$mode_system"
                                        
-# Launch polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh 
 # Start i3bar to display a workspace   bar (plus the system information i3status
 # finds out, if available)             
-# bar {                                  
-#         status_command i3status
-# }
+bar {                                  
+        status_command i3status
+}
 
 #######################################################################
 # automatically start i3-config-wizard to offer the user to create a
