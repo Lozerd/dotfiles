@@ -1,0 +1,52 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 35,
+    "spacing": 0,
+    "margin-top": 0,
+    "margin-bottom": 0,
+
+    // Modules order
+    "modules-left": ["tray", "hyprland/submap"],
+    "modules-center": ["hyprland/workspaces"],
+    "modules-right": ["clock", "hyprland/language"],
+
+    // Modules left
+    "tray": {
+        "icon-size": 20,
+        "spacing": 10
+    },
+
+    "hyprland/submap": {
+        "format": "{}",
+    },
+
+    // Modules center
+    "hyprland/workspaces": {
+        "sort-by-number": true,
+        "all-outputs": true,
+        "format": "{icon}",
+        "format-icons": {
+            "active": "",
+            "urgent": "",
+            "default": "",
+        },
+        // "format": "{windows}",
+        "window-rewrite-default": "",
+        "window-rewrite": {
+            "class<google-chrome>": "󰊯",
+            "class<Alacritty>": "",
+            "class<Skype>": "󰒰",
+        },
+    },
+
+    // Modules right
+    "clock": {
+        "format": "{:%d.%m.%Y %H:%M}",
+    },
+    
+    "hyprland/language": {
+        "format-en": "en",
+        "format-ru": "ru"
+    },
+}
