@@ -106,6 +106,9 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # Open nemo file explorer in floating mode
 for_window [class="Nemo"] floating enable
 
+# Open chrome-devtools in floating mode
+for_window [class="Google-chrome" title="^DevTools.*"] floating enable
+
 # change focus
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down

@@ -1,5 +1,5 @@
 return {
-    "rcarriga/nvim-dap-ui", 
+    "rcarriga/nvim-dap-ui",
     dependencies = { "mfussenegger/nvim-dap" },
     config = function()
         local dap, dapui, fzf = require("dap"), require("dapui"), require("fzf-lua")
@@ -172,6 +172,39 @@ return {
             {
                 type = "python",
                 request = "launch",
+                name = "Run current buffer management command",
+                pythonPath = vim.fn.getcwd() .. "/env/bin/python",
+                program = vim.fn.getcwd() .. "/manage.py",
+                django = true,
+                justMyCode = default_nvim_dap_python_opts.justMyCode,
+                autoReload = {
+                    enabled = true
+                },
+                args = function()
+                    local filename = vim.fn.expand("%:t")
+                    return { filename:sub(1, #filename - 3), get_dsm() }
+                end
+            },
+            {
+                type = "python",
+                request = "launch",
+                name = "Run custom django management command",
+                pythonPath = vim.fn.getcwd() .. "/env/bin/python",
+                program = vim.fn.getcwd() .. "/manage.py",
+                django = true,
+                justMyCode = default_nvim_dap_python_opts.justMyCode,
+                autoReload = {
+                    enabled = true
+                },
+                args = function()
+                    local args_string = vim.fn.input('Command: ')
+                    local default_arguments = { get_dsm() }
+                    return vim.tbl_deep_extend("force", default_arguments, vim.split(args_string, " +"))
+                end,
+            },
+            {
+                type = "python",
+                request = "launch",
                 name = "FastApi",
                 pythonPath = vim.fn.getcwd() .. "/env/bin/python",
                 module = "uvicorn",
@@ -183,6 +216,20 @@ return {
                     "app.main:app",
                     -- "--reload"
                 }
+            },
+            {
+                type = "python",
+                request = "launch",
+                name = "Run current buffer fastapi custom command",
+                pythonPath = vim.fn.getcwd() .. "/env/bin/python",
+                justMyCode = default_nvim_dap_python_opts.justMyCode,
+                autoReload = {
+                    enable = true,
+                },
+                module = function()
+                    local command = vim.fn.expand("%:t")
+                    return "commands." .. command:sub(1, #command - 3)
+                end
             },
             {
                 type = 'python',
@@ -232,4 +279,3 @@ return {
         }
     end
 }
-
