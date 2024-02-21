@@ -1,0 +1,17 @@
+# TODO rewrite for zsh
+# Config from sayanta01 at github.com, commit be0710d6ce9db3db74bfcbf05e47a2cd7a9a34f9
+# #!/bin/sh
+# 
+# dir="${HOME}/.local/share/walls"
+# BG="$(find "$dir" -name '*.jpg' -o -name '*.png' | shuf -n1)"
+# 
+# # Name of the program to check
+# PROGRAM="swww-daemon"
+# trans_type="simple"
+# 
+# # Check if the program is running
+# if pgrep "$PROGRAM" >/dev/null; then
+# 	swww img "$BG" --transition-fps 255 --transition-type $trans_type --transition-duration 1
+# else
+# 	swww init && swww img "$BG" --transition-fps 255 --transition-type $trans_type --transition-duration 1
+# fi
