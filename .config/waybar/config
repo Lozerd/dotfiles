@@ -42,7 +42,8 @@
 
     // Modules right
     "clock": {
-        "format": "{:%d.%m.%Y %H:%M}",
+        "format": "{:%d.%m.%Y %H:%M:%S}",
+        "interval": 1,
     },
     
     "hyprland/language": {

@@ -37,6 +37,8 @@ return {
                     "load,extends,include,endif,endfor,endcomment",
                     "--blank-line-before-tag",
                     "include,if,for,comment",
+                    "--max-attribute-length",
+                    "120",
                     "--profile",
                     "django",
                     "--quiet",
