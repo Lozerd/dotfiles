@@ -136,6 +136,8 @@ return {
             -- }
         })
 
+        lspconfig["clangd"].setup({})
+
         -- lspconfig["gradle_ls"].setup({
         --     capabilities = capabilities,
         -- })
