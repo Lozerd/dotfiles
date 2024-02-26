@@ -1,2 +1,4 @@
 .ssh/*
-tmux/plugins/
+**/tmux/plugins/
+__pycache__/
+
