@@ -4,7 +4,7 @@ vim.g.ranger_map_keys = 0
 vim.g.ranger_replace_netrw = 1
 
 -- keymap.set("n", "<leader>pv", vim.cmd.Ex)
-keymap.set("n", "<leader>pv", [[ :Ranger<CR>:startinsert<CR> ]])
+keymap.set("n", "<leader>pv", [[ :Ranger<CR> ]])
 
 -- New Tab
 keymap.set("n", "te", ":tabedit<Return>", { silent = true })

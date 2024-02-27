@@ -118,6 +118,7 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias mysql="mariadb"
+alias yayy="yay --noconfirm"
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
@@ -172,24 +173,19 @@ function activate_python_env() {
   fi
 }
 
-# __zoxide_z () {
-# 	if [[ "$#" -eq 0 ]]
-# 	then
-# 		__zoxide_cd ~
-# 	elif [[ "$#" -eq 1 ]] && {
-# 			[[ -d "$1" ]] || [[ "$1" = '-' ]] || [[ "$1" =~ ^[-+][0-9]$ ]]
-# 		}
-# 	then
-# 		__zoxide_cd "$1"
-#         activate_python_env
-# 	elif [[ "$@[-1]" == "${__zoxide_z_prefix}"?* ]]
-# 	then
-# 		\builtin local result="${@[-1]}"
-# 		__zoxide_cd "${result:${#__zoxide_z_prefix}}"
-#         activate_python_env
-# 	else
-# 		\builtin local result
-# 		result="$(\command zoxide query --exclude "$(__zoxide_pwd)" -- "$@")"  && __zoxide_cd "${result}"
-#         activate_python_env
-# 	fi
-# }
+__zoxide_z () {
+        if [[ "$#" -eq 0 ]]
+        then
+                __zoxide_cd ~
+        elif [[ "$#" -eq 1 ]] && {
+                        [[ -d "$1" ]] || [[ "$1" = '-' ]] || [[ "$1" =~ ^[-+][0-9]$ ]]
+                }
+        then
+                __zoxide_cd "$1"
+                activate_python_env
+        else
+                \builtin local result
+                result="$(\command zoxide query --exclude "$(__zoxide_pwd)" -- "$@")"  && __zoxide_cd "${result}"
+                activate_python_env
+        fi
+}

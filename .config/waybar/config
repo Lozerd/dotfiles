@@ -13,7 +13,7 @@
         "hyprland/workspaces",
         "custom/media",
         "idle_inhibitor",
-         "custom/updater",
+        "custom/updater",
         "pulseaudio",
         "network",
         "cpu",
