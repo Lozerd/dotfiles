@@ -116,8 +116,8 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias mysql="mariadb"
-alias yayy="yay --noconfirm"
+source $ZSH_CUSTOM/aliases.zsh
+
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 

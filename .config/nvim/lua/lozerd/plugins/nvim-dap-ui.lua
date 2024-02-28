@@ -146,7 +146,7 @@ return {
         local default_nvim_dap_python_opts = {
             include_configs = true,
             console = 'integratedTerminal',
-            -- pythonPath = vim.fn.getcwd() .. "/env/bin/python",
+            pythonPath = vim.fn.getcwd() .. "/env/bin/python",
             justMyCode = false,
         }
 
@@ -209,6 +209,7 @@ return {
                 name = "Run pytests",
                 module = "pytest",
                 justMyCode = default_nvim_dap_python_opts.justMyCode,
+                pythonPath = default_nvim_dap_python_opts.pythonPath,
                 args = function()
                     local args_string = vim.fn.input("Package or module: ")
                     return { "-q", args_string }
