@@ -50,7 +50,7 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
-        local flake8_config_dir = function()
+        local tox_config_dir = function()
             local dir = vim.fn.getcwd() .. "/tox.ini"
             if vim.fn.filereadable(dir) then
                 return dir
@@ -80,27 +80,37 @@ return {
             settings = {
                 pylsp = {
                     plugins = {
-                        rope = { ropeFolder = ".ropeproject" },
-                        pydocstyle = disabled,
-                        pyflakes = disabled,
-                        pylint = disabled,
-                        pycodestyle = { enabled = false, maxLineLength = 120 },
+                        autopep8 = { enabled = true, maxLineLength = 120 },
                         flake8 = {
                             enabled = true,
-                            config = flake8_config_dir(),
+                            config = tox_config_dir(),
                             maxLineLength = 120,
                             maxComplexity = 15
                         },
-                        autopep8 = { enabled = true, maxLineLength = 120 },
-                        black = disabled,
-                        jedi_completion = { enabled = true },
-                        rope_autoimport = {
-                            enabled = false,
-                            memory = false,
-                            code_actions = { enabled = true },
-                            completions = { enabled = true },
+                        -- jedi = disabled,
+                        jedi_completion = disabled,
+                        -- jedi_definition = disabled,
+                        jedi_hover = disabled,
+                        jedi_references = disabled,
+                        jedi_signature_help = disabled,
+                        jedi_symbols = disabled,
+                        mccabe = disabled,
+                        preload = disabled,
+                        pycodestyle = disabled,
+                        pydocstyle = {
+                            enabled = true,
+                            ignore = {
+                                "D100", "D101", "D102", "D105", "D106", "D107",
+                                "D203", "D210", "D212", "D205"
+                            }
                         },
-                        rope_completion = { enabled = false }
+                        pyflakes = disabled,
+                        pylint = disabled,
+                        rope_autoimport = disabled,
+                        rope_completion = disabled,
+                        yapf = disabled,
+                        black = disabled,
+                        rope = { ropeFolder = ".ropeproject" },
                     },
                 },
             },
