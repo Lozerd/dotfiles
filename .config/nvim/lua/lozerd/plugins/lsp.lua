@@ -60,6 +60,8 @@ return {
         end
         local disabled = { enabled = false }
 
+
+        lspconfig["pyright"].setup({})
         lspconfig["pylsp"].setup({
             capabilities = capabilities,
             cmd = { "pylsp", "-v", "--log-file", "/tmp/nvim-pylsp.log" },
@@ -125,32 +127,9 @@ return {
             },
         })
 
-        lspconfig["kotlin_language_server"].setup({
-            -- capabilities = capabilities,
-            -- settings = {
-            --     kotlin = {
-            --         trace = {
-            --             server = "verbose"
-            --         }
-            --     }
-            -- }
-        })
+        lspconfig["kotlin_language_server"].setup({})
 
         lspconfig["clangd"].setup({})
-
-        -- lspconfig["gradle_ls"].setup({
-        --     capabilities = capabilities,
-        -- })
-
-        -- lsp.set_preferences({
-        --     suggest_lsp_servers = false,
-        --     sign_icons = {
-        --         error = 'E',
-        --         warn = 'W',
-        --         hint = 'H',
-        --         info = 'I'
-        --     },
-        -- })
 
         vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
             vim.lsp.diagnostic.on_publish_diagnostics, {
