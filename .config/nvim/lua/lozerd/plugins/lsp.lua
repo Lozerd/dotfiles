@@ -60,8 +60,20 @@ return {
         end
         local disabled = { enabled = false }
 
+        -- ───────────────────────────────────────────────── --
+        -- ───────────────────❰ Python ❱──────────────────── --
 
-        lspconfig["pyright"].setup({})
+        lspconfig["pyright"].setup({
+            settings = {
+                python = {
+                    analysis = {
+                        diagnosticSeverityOverrides = {
+                            -- reportAssignmentType = "none",
+                        },
+                    }
+                }
+            }
+        })
         lspconfig["pylsp"].setup({
             capabilities = capabilities,
             cmd = { "pylsp", "-v", "--log-file", "/tmp/nvim-pylsp.log" },
@@ -94,8 +106,10 @@ return {
             },
         })
 
-        lspconfig["tsserver"].setup({})
+        -- ───────────────────────────────────────────────── --
+        -- ─────────────────❰ JavaScript ❱────────────────── --
 
+        lspconfig["tsserver"].setup({})
         lspconfig["vuels"].setup({
             settings = {
                 vuels = {
