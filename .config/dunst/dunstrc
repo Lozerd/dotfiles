@@ -4,5 +4,5 @@ width = 300
 offset = 10x0
 
 max_icon_size = 32
-font = "Iosevka Nerd Font Mono 11pt"
+font = JetBrainsMono Nerd Font 
 

@@ -117,44 +117,6 @@ return {
             },
         })
 
-        lspconfig["pylsp"].setup({
-            capabilities = capabilities,
-            cmd = { "pylsp", "-v", "--log-file", "/tmp/nvim-pylsp.log" },
-            settings = {
-                pylsp = {
-                    plugins = {
-                        rope = { ropeFolder = ".ropeproject" },
-                        pydocstyle = disabled,
-                        pyflakes = disabled,
-                        pylint = disabled,
-                        pycodestyle = { enabled = false, maxLineLength = 120 },
-                        flake8 = {
-                            enabled = true,
-                            config = flake8_config_dir(),
-                            maxLineLength = 120,
-                            maxComplexity = 15
-                        },
-                        isort = { enabled = true },
-                        autopep8 = { enabled = true, maxLineLength = 120 },
-                        black = disabled,
-                        jedi_completion = { enabled = false },
-                        rope_autoimport = {
-                            enabled = false,
-                            memory = false,
-                            code_actions = { enabled = true },
-                            completions = { enabled = true },
-                        },
-                        yapf = disabled,
-                        rope_completion = { enabled = false }
-                    },
-                },
-            },
-        })
-
-        lspconfig["pyright"].setup({
-            cmd = { "pyright", "--level", "warning" },
-        })
-
         -- ───────────────────────────────────────────────── --
         -- ─────────────────❰ JavaScript ❱────────────────── --
 
