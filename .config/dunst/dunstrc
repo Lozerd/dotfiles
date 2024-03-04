@@ -1,7 +1,8 @@
 [global]
 height = 100
-width = 200
+width = 300
 offset = 10x0
 
 max_icon_size = 32
-font = "Jetbrains Regular 12pt"
+font = "Iosevka Nerd Font Mono 11pt"
+

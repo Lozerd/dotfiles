@@ -16,11 +16,14 @@ return {
                 "cssls",
                 "lua_ls",
                 "pylsp",
+                "djlint",
+                "isort"
             },
         })
 
         local formatting = null_ls.builtins.formatting
         local diagnostics = null_ls.builtins.diagnostics
+        local code_actions = null_ls.builtins.code_actions
 
         local sources = {}
 
@@ -46,6 +49,23 @@ return {
             })
         end
 
+
+        --[[
+        if vim.fn.executable("autopep8") == 1 then
+            sources[#sources + 1] = formatting.autopep8.with({
+                command = "autopep8",
+                args = {
+                    "-",
+                    "--max_line_length",
+                    "120"
+                },
+            })
+        end
+        ]]--
+
+        -- ───────────────❰ end FORMATTING ❱──────────────── --
+        -- ───────────────────────────────────────────────── --
+
         -- ───────────────────────────────────────────────── --
         -- ─────────────────❰ DIAGNOSTICS ❱───────────────── --
 
@@ -55,6 +75,58 @@ return {
                 args = { vim.fn.expand("%") }
             })
         end
+
+        local flake8_config_dir = function()
+            local dir = vim.fn.getcwd() .. "/tox.ini"
+            if vim.fn.filereadable(dir) then
+                return dir
+            else
+                return nil
+            end
+        end
+
+        if vim.fn.executable("flake8") == 1 and false then
+            sources[#sources + 1] = diagnostics.flake8.with({
+                command = "flake8",
+                args = {
+                    vim.fn.expand("%:p"),
+                    "--config",
+                    flake8_config_dir(),
+                    '--max-line-length',
+                    '120',
+                    'max-complexity',
+                    '15'
+                }
+            })
+        end
+
+        if vim.fn.executable("mypy") == 1 and false then
+            sources[#sources + 1] = diagnostics.mypy
+            --[[
+            sources[#sources + 1] = diagnostics.mypy.with({
+                command = "mypy",
+                args = {
+                    vim.fn.expand("%:p"),
+                    '--show-column-numbers',
+                    '--show-error-end',
+                    '--hide-error-codes',
+                    '--hide-error-context',
+                    '--no-color-output',
+                    '--no-error-summary',
+                    '--no-pretty',
+                }
+            })
+            ]]--
+        end
+
+        -- enabled = true,
+        -- config = flake8_config_dir(),
+        -- maxLineLength = 120,
+        -- maxComplexity = 15
+
+        -- ───────────────❰ end DIAGNOSTICS ❱──────────────── --
+        -- ───────────────────────────────────────────────── --
+
 
         null_ls.setup({
             sources = sources

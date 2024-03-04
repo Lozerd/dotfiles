@@ -1,0 +1,4 @@
+[general]
+early-exit = false
+copy-command = "wl-copy"
+default-hide-toolbars = false
