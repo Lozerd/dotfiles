@@ -64,6 +64,8 @@ return {
         -- ───────────────────❰ Python ❱──────────────────── --
 
         lspconfig["pyright"].setup({
+            on_attach=on_attach,
+            capabilities = capabilities,
             settings = {
                 python = {
                     analysis = {
@@ -82,6 +84,7 @@ return {
                 pylsp = {
                     plugins = {
                         autopep8 = { enabled = true, maxLineLength = 120 },
+                        -- autopep8 = disabled,
                         flake8 = {
                             enabled = true,
                             config = tox_config_dir(),
@@ -97,7 +100,7 @@ return {
                         jedi_symbols = disabled,
                         mccabe = disabled,
                         preload = disabled,
-                        pycodestyle = disabled,
+                        pycodestyle = { enabled = true, maxLineLength = 120 },
                         pydocstyle = {
                             enabled = true,
                             ignore = {
@@ -109,7 +112,7 @@ return {
                         pylint = disabled,
                         rope_autoimport = disabled,
                         rope_completion = disabled,
-                        yapf = disabled,
+                        -- yapf = disabled,
                         black = disabled,
                         rope = { ropeFolder = ".ropeproject" },
                     },
@@ -137,15 +140,19 @@ return {
             capabilities = capabilities,
             settings = { -- custom settings for lua
                 Lua = {
+                    runtime = { version = "LuaJIT" },
                     -- make the language server recognize "vim" global
                     diagnostics = {
                         globals = { "vim" },
                     },
                     workspace = {
+                        checkThirdParty = false,
                         -- make language server aware of runtime files
                         library = {
-                            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                            [vim.fn.stdpath("config") .. "/lua"] = true,
+                            -- [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                            -- [vim.fn.stdpath("config") .. "/lua"] = true,
+                            "${3rd}/luv/library",
+                            unpack(vim.api.nvim_get_runtime_file("", true)),
                         },
                     },
                 },
