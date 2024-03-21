@@ -101,7 +101,7 @@ return {
                         jedi_symbols = disabled,
                         mccabe = disabled,
                         preload = disabled,
-                        pycodestyle = { enabled = true, maxLineLength = 120 },
+                        pycodestyle = { enabled = false, maxLineLength = 120 },
                         -- pycodestyle = disabled,
                         pydocstyle = {
                             enabled = true,
