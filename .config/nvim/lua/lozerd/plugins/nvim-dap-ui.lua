@@ -106,12 +106,15 @@ return {
         local dpy = require("dap-python")
         dpy.setup("~/.virtualenvs/debugpy/bin/python")
 
+
+
         -- Python
         dap.adapters.python = {
             type = "executable",
             command = os.getenv("HOME") .. "/.virtualenvs/debugpy/bin/python",
             args = { "-m", "debugpy.adapter" },
         }
+
 
         -----------------------
         -- Dap configuration --
@@ -259,7 +262,10 @@ return {
                 noDebug = true,
                 console = default_nvim_dap_python_opts.console,
                 pythonPath = default_nvim_dap_python_opts.pythonPath,
-            }
+            },
         }
+
+        local dgo = require("dap-go")
+        dgo.setup {}
     end
 }
