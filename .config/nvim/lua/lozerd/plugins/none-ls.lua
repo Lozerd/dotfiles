@@ -49,7 +49,6 @@ return {
             })
         end
 
-
         --[[
         if vim.fn.executable("autopep8") == 1 then
             sources[#sources + 1] = formatting.autopep8.with({
@@ -62,6 +61,20 @@ return {
             })
         end
         ]]--
+
+        if false and vim.fn.executable("black") == 1 then
+            sources[#sources + 1] = formatting.black.with({
+                command = "black",
+                args = {
+                    "--fast",
+                    "--quiet",
+                    "--line-length",
+                    "120",
+                    "--skip-string-normalization",
+                }
+            })
+            --sources[#sources+1] = formatting.black.with({ })
+        end
 
         -- ───────────────❰ end FORMATTING ❱──────────────── --
         -- ───────────────────────────────────────────────── --

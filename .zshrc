@@ -143,7 +143,8 @@ export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-eval "$(zoxide init zsh --cmd cd)"
+# eval "$(zoxide init zsh --cmd cd)"
+eval "$(zoxide init zsh)"
 
 function activate_python_env() {
   # builtin cd "$@"
@@ -188,3 +189,8 @@ __zoxide_z () {
                 activate_python_env
         fi
 }
+
+cd() { __zoxide_z "$@" }
+\builtin alias cdi=__zoxide_zi
+
+[[ -s "/home/lozerd/.gvm/scripts/gvm" ]] && source "/home/lozerd/.gvm/scripts/gvm"

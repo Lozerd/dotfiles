@@ -70,6 +70,7 @@ return {
                 python = {
                     analysis = {
                         diagnosticSeverityOverrides = {
+                            reportUnusedVariable = "none",
                             -- reportAssignmentType = "none",
                         },
                     }
@@ -91,16 +92,17 @@ return {
                             maxLineLength = 120,
                             maxComplexity = 15
                         },
-                        -- jedi = disabled,
+                        jedi = disabled,
                         jedi_completion = disabled,
-                        -- jedi_definition = disabled,
+                        jedi_definition = disabled,
                         jedi_hover = disabled,
                         jedi_references = disabled,
                         jedi_signature_help = disabled,
                         jedi_symbols = disabled,
                         mccabe = disabled,
                         preload = disabled,
-                        pycodestyle = { enabled = true, maxLineLength = 120 },
+                        pycodestyle = { enabled = false, maxLineLength = 120 },
+                        -- pycodestyle = disabled,
                         pydocstyle = {
                             enabled = true,
                             ignore = {
@@ -128,6 +130,10 @@ return {
             settings = {
                 vuels = {
                     vetur = {
+                        ignoreProjectWarning = true,
+                        completion = {
+                            autoImport = true,
+                        },
                         options = {
                             tabSize = 4
                         }
@@ -162,6 +168,7 @@ return {
         lspconfig["kotlin_language_server"].setup({})
 
         lspconfig["clangd"].setup({})
+        lspconfig["gopls"].setup({})
 
         vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
             vim.lsp.diagnostic.on_publish_diagnostics, {
