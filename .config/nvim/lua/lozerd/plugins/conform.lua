@@ -17,7 +17,7 @@ return {
             lua = { "stylua" },
             python = { "autopep8" },
         },
-        formatter = {
+        formatters = {
             autopep8 = {
                 prepend_args = { "--max-line-length", "120" }
             }

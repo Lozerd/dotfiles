@@ -231,10 +231,12 @@ return {
                 request = "launch",
                 name = "Run current buffer FastApi command",
                 pythonPath = vim.fn.getcwd() .. "/env/bin/python",
+                -- module = "commands.openai_fernet_secret_change",
                 module = "commands.update_chatgpt_models",
-                -- args = function()
+                justMyCode = default_nvim_dap_python_opts.justMyCode,
+                -- program = function()
                 --     local args_string = vim.fn.input("Command: ")
-                --     return { "-m", "commands." .. args_string }
+                --     return { vim.fn.getcwd() .. "/env/bin/python", "-m", "commands." .. args_string }
                 --     -- local file = vim.fn.expand("%:t")
                 --     -- return { "-m", "commands." .. file:sub(0, #file - 4) }
                 -- end

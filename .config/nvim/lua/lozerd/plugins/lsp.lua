@@ -1,5 +1,6 @@
 return {
     "neovim/nvim-lspconfig",
+    opts = { autoformat = false },
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         { 'hrsh7th/cmp-nvim-lsp' }
@@ -64,8 +65,36 @@ return {
         -- ───────────────────❰ Python ❱──────────────────── --
 
         lspconfig["pyright"].setup({
-            on_attach=on_attach,
+        --lspconfig["basedpyright"].setup({
+            on_attach = on_attach,
             capabilities = capabilities,
+            -- settings = {
+            --  basedpyright = {
+            --      analysis = {
+            --          useLibraryCodeForTypes = true,
+            --          autoImportCompletions = true,
+            --          autoSearchPaths = true,
+            --          diagnosticMode = "openFilesOnly",
+            --          diagnosticSeverityOverrides = {},
+            --          exclude = {},
+            --          extraPaths = {},
+            --          ignore = {},
+            --          include = {},
+            --          logLevel = "Information",
+            --          stubPath = "/home/lozerd/.virtualenvs/typings",
+            --          typeCheckingMode = "all",
+            --          typeshedPaths = {},
+            --      },
+            --      disableLanguageServices = false,
+            --      disableOrganizeImports = false,
+            --      disableTaggedHints = false,
+            --      importStrategy = "fromEnvironment",
+            --  },
+            --  python = {
+            --      pythonPath = "python",
+            --      venvPath = "env"
+            --  },
+            -- }
             settings = {
                 python = {
                     analysis = {
@@ -76,6 +105,7 @@ return {
                     }
                 }
             }
+
         })
 
         lspconfig["pylsp"].setup({
@@ -114,7 +144,7 @@ return {
                         pylint = disabled,
                         rope_autoimport = disabled,
                         rope_completion = disabled,
-                        -- yapf = disabled,
+                        yapf = disabled,
                         black = disabled,
                         rope = { ropeFolder = ".ropeproject" },
                     },
