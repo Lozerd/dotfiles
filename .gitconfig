@@ -3,3 +3,5 @@
 [user]
 	name = Lozerd
 	email = m.drozdov@coffeestudio.ru
+[alias]
+	cleanup = !git branch --merged|grep -iEv \"(^\\*|master|develop)\"|xargs git branch -d

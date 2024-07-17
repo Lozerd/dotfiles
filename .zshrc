@@ -125,24 +125,16 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
-# [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-# Lazy load sdkman
-sdk () {
-    if [[ "$(which sdk | wc -l)" -le 10 ]]; then
-        unset -f sdk
-        source "$SDKMAN_DIR/bin/sdkman-init.sh"
-    fi
-    sdk "$@"
-}
-
 
 ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
 
 
+# Enable while working with python2.7
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv init - zsh --no-rehash)"
+# eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv virtualenv-init - | sed s/precmd/precwd/g)"
 # eval "$(zoxide init zsh --cmd cd)"
 eval "$(zoxide init zsh)"
 
@@ -193,4 +185,4 @@ __zoxide_z () {
 cd() { __zoxide_z "$@" }
 \builtin alias cdi=__zoxide_zi
 
-[[ -s "/home/lozerd/.gvm/scripts/gvm" ]] && source "/home/lozerd/.gvm/scripts/gvm"
+# [[ -s "/home/lozerd/.gvm/scripts/gvm" ]] && source "/home/lozerd/.gvm/scripts/gvm"

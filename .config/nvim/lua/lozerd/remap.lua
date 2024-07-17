@@ -46,9 +46,34 @@ keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 keymap.set("n", "<leader>Y", [["+Y]])
 
 keymap.set("n", "Q", "<nop>")
-keymap.set("n", "<leader>f", function()
-    vim.lsp.buf.format({
-        timeout_ms = 2000,
-        async = true
-    })
-end)
+-- keymap.set("n", "<leader>f", function()
+--     vim.lsp.buf.format({
+--         timeout_ms = 2000,
+--         async = true
+--     })
+-- end)
+
+-- Define a keymap for range formatting
+-- vim.keymap.set('v', '<leader>f', function()
+--     local start_pos = vim.fn.getpos("'<")
+--     local end_pos = vim.fn.getpos("'>")
+-- 
+--     local start_line = start_pos[2] - 1
+--     local end_line = end_pos[2]
+-- 
+--     local params = {
+--         textDocument = vim.lsp.util.make_text_document_params(),
+--         range = {
+--             start = { line = start_line, character = 0 },
+--             ["end"] = { line = end_line, character = 0 },
+--         },
+--     }
+-- 
+--     vim.lsp.buf_request(0, 'textDocument/rangeFormatting', params, function(err, result, ctx, config)
+--         if err then
+--             vim.notify("Error formatting: " .. err.message, vim.log.levels.ERROR)
+--         end
+--         if not result then return end
+--         vim.lsp.util.apply_text_edits(result, 0, "utf-16")
+--     end)
+-- end, { noremap = true, silent = true, desc = 'Format selected lines using gopls' })

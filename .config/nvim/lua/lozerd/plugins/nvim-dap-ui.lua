@@ -232,7 +232,8 @@ return {
                 name = "Run current buffer FastApi command",
                 pythonPath = vim.fn.getcwd() .. "/env/bin/python",
                 -- module = "commands.openai_fernet_secret_change",
-                module = "commands.update_chatgpt_models",
+                -- module = "commands.update_chatgpt_models",
+                module = "commands.${fileBasenameNoExtension}",
                 justMyCode = default_nvim_dap_python_opts.justMyCode,
                 -- program = function()
                 --     local args_string = vim.fn.input("Command: ")
@@ -240,6 +241,18 @@ return {
                 --     -- local file = vim.fn.expand("%:t")
                 --     -- return { "-m", "commands." .. file:sub(0, #file - 4) }
                 -- end
+            },
+            {
+                type = "python",
+                request = "launch",
+                name = "Run alembic command",
+                module = "alembic",
+                justMyCode = default_nvim_dap_python_opts.justMyCode,
+                pythonPath = default_nvim_dap_python_opts.pythonPath,
+                args = function()
+                    local args_string = vim.fn.input("Command: ")
+                    return vim.split(args_string, " ")
+                end
             },
             {
                 type = "python",
