@@ -16,6 +16,7 @@ return {
 
         local server_names = {
             "basedpyright",
+            "pylsp",
             "tsserver",
             "vuels",
             "lua_ls",

@@ -17,6 +17,7 @@ return {
                 -- Function to format the selected range
                 function FormatRange(start_line, end_line)
                     require('conform').format({
+                        async = true,
                         start_line = start_line,
                         end_line = end_line,
                         bufnr = vim.api.nvim_get_current_buf(),

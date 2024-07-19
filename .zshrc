@@ -133,7 +133,7 @@ ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_V
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - zsh --no-rehash)"
-# eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv virtualenv-init -)"
 eval "$(pyenv virtualenv-init - | sed s/precmd/precwd/g)"
 # eval "$(zoxide init zsh --cmd cd)"
 eval "$(zoxide init zsh)"

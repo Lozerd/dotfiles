@@ -1,3 +1,6 @@
+local util = require("lozerd.util")
+local configs = require("lozerd.configs")
+
 return {
     cmd = { "pylsp", "-v", "--log-file", "/tmp/nvim-pylsp.log" },
     settings = {
@@ -7,21 +10,21 @@ return {
                 -- autopep8 = disabled,
                 flake8 = {
                     enabled = true,
-                    config = tox_config_dir(),
+                    config = configs.tox_config_dir(),
                     maxLineLength = 120,
                     maxComplexity = 15
                 },
-                jedi = disabled,
-                jedi_completion = disabled,
-                jedi_definition = disabled,
-                jedi_hover = disabled,
-                jedi_references = disabled,
-                jedi_signature_help = disabled,
-                jedi_symbols = disabled,
-                mccabe = disabled,
-                preload = disabled,
+                jedi = util.disabled,
+                jedi_completion = util.disabled,
+                jedi_definition = util.disabled,
+                jedi_hover = util.disabled,
+                jedi_references = util.disabled,
+                jedi_signature_help = util.disabled,
+                jedi_symbols = util.disabled,
+                mccabe = util.disabled,
+                preload = util.disabled,
                 pycodestyle = { enabled = false, maxLineLength = 120 },
-                -- pycodestyle = disabled,
+                -- pycodestyle = util.disabled,
                 pydocstyle = {
                     enabled = true,
                     ignore = {
@@ -29,12 +32,12 @@ return {
                         "D203", "D210", "D212", "D205"
                     }
                 },
-                pyflakes = disabled,
-                pylint = disabled,
-                rope_autoimport = disabled,
-                rope_completion = disabled,
-                yapf = disabled,
-                black = disabled,
+                pyflakes = util.disabled,
+                pylint = util.disabled,
+                rope_autoimport = util.disabled,
+                rope_completion = util.disabled,
+                yapf = util.disabled,
+                black = util.disabled,
                 rope = { ropeFolder = ".ropeproject" },
             },
         },
