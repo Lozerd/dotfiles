@@ -11,7 +11,7 @@ return {
 
         mason_null_ls.setup({
             ensure_installed = {
-                "tsserver",
+                "ts_ls",
                 "vuels",
                 "cssls",
                 "lua_ls",

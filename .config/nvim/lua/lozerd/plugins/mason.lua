@@ -21,7 +21,7 @@ return {
 
         mason_lspconfig.setup({
             ensure_installed = {
-                "tsserver",
+                "ts_ls",
                 "vuels",
                 "cssls",
                 "pylsp",
@@ -36,7 +36,7 @@ return {
 
         mason_tool_installer.setup({
             ensure_installed = {
-                "tsserver",
+                "ts_ls",
                 "vuels",
                 "cssls",
                 "lua_ls",
