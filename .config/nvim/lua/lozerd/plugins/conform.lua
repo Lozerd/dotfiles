@@ -1,6 +1,7 @@
 return {
     "stevearc/conform.nvim",
     event = { "BufReadPre", "BufNewFile" },
+    branch = "nvim-0.9",
     cmd = { "ConformInfo" },
     keys = {
         {
@@ -43,9 +44,9 @@ return {
             lua = { "stylua" },
             python = { "autopep8" },
         },
-        formatter = {
+        formatters = {
             autopep8 = {
-                prepend_args = { "--max-line-length", "120" }
+                append_args = { "--max-line-length", "120" }
             }
         }
     }

@@ -12,11 +12,8 @@ return {
                 bat = {
                     cmd = "batcat"
                 }
-            }
+            },
         })
-
-        vim.keymap.set("n", "<leader>pg", fzf.live_grep_resume, { desc = "[P]roject [S]trings (fzf)" })
-
 
 
         vim.keymap.set("n", "<leader><C-e>", fzf.oldfiles, { desc = "[C-e] View recent files" })
@@ -25,10 +22,18 @@ return {
         vim.keymap.set("n", "<leader>pf", function()
             fzf.files({ hidden = true })
         end, { desc = "[P]roject [F]iles" })
-        vim.keymap.set("n", "<leader>phf", function()
-            fzf.live_grep({ additional_args = { "-u" } })
-        end, { desc = "[P]roject [H]idden [F]iles" })
 
-        vim.keymap.set("n", "<leader>ps", fzf.live_grep, { desc = "[P]roject [S]trings" })
+        vim.keymap.set("n", "<leader>nh", fzf.helptags, { desc = "[N]eovim [H]elptags" })
+
+        -- vim.keymap.set("n", "<leader>ps", fzf.live_grep, { desc = "[P]roject [S]trings" })
+        vim.keymap.set("n", "<leader>ps", fzf.live_grep_resume, { desc = "[P]roject [S]trings" })
+        -- vim.keymap.set("n", "<leader>prs", fzf.live_grep_resume, { desc = "[P]roject [S]trings resume" }
+
+        -- Git related staff
+        vim.keymap.set("n", "<leader>gt", fzf.git_tags, { desc = "[G]it [T]tags" })
+        vim.keymap.set("n", "<leader>gz", fzf.git_stash, { desc = "[G]it [S]stash" })
+        vim.keymap.set("n", "<leader>gf", fzf.git_files, { desc = "[G]it [F]files" })
+        vim.keymap.set("n", "<leader>gc", fzf.git_commits, { desc = "[G]it [C]commits" })
+        vim.keymap.set("n", "<leader>gb", fzf.git_branches, { desc = "[G]it [B]branches" })
     end
 }

@@ -41,7 +41,7 @@ return {
                 "cssls",
                 "lua_ls",
                 "pylsp",
-                "djlint",
+                -- "djlint",
             },
         })
 

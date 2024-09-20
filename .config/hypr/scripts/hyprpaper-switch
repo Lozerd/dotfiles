@@ -2,6 +2,8 @@
 
 wallpapers_dir=$HOME/.config/hypr/wallpapers
 
+killall -e hyprpaper & sleep 1; hyprpaper &
+
 if [ -d "$wallpapers_dir" ]; then
     monitors=$(hyprctl monitors | rg Monitor | awk '{print $2}' | xargs)
 

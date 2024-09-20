@@ -267,6 +267,34 @@ return {
                 end
             },
             {
+                type = "python",
+                request = "launch",
+                name = "Run tox with arguments",
+                module = "tox",
+                justMyCode = default_nvim_dap_python_opts.justMyCode,
+                pythonPath = default_nvim_dap_python_opts.pythonPath,
+                args = function()
+                    -- tox -e py39 -- accounts/tests.py::test_account_course_session_progress
+                    local environ = vim.fn.input("Environment: ")
+                    local args = vim.fn.input("Arguments: ")
+
+                    local tox_arguments = {}
+
+                    if environ ~= "" then
+                        table.insert(tox_arguments, "-e")
+                        table.insert(tox_arguments, environ)
+                    end
+
+                    if args ~= "" then
+                        table.insert(tox_arguments, "--")
+                        table.insert(tox_arguments, args)
+                    end
+
+                    vim.notify(vim.inspect(tox_arguments))
+                    return tox_arguments
+                end
+            },
+            {
                 type = 'python',
                 request = 'launch',
                 name = 'Launch file',

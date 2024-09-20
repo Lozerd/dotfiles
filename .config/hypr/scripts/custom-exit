@@ -1,31 +1,10 @@
-#!/bin/sh
-lock() {
-    swaylock -n -ti /home/lozerd/.config/sway/backgrounds/lock-fixed.png
-}
+#!/usr/bin/env sh
 
-case "$1" in
-    lock)
-        lock
-        ;;
-    logout)
-        hyprctl dispatch exit 
-        ;;
-    suspend)
-        systemctl suspend
-        ;;
-    hibernate)
-        lock && systemctl hibernate
-        ;;
-    reboot)
-        systemctl reboot
-        ;;
-    shutdown)
-        systemctl poweroff
-        # /sbin/poweroff
-        ;;
-    *)
-        echo "Usage: $0 {lock|logout|suspend|hibernate|reboot|shutdown}"
-        exit 2
-esac
+# Wlogout is running?
+if pgrep -x "wlogout" > /dev/null
+then
+    pkill -x "wlogout"
+    exit 0
+fi
 
-exit 0
+wlogout -b 6 --protocol layer-shell

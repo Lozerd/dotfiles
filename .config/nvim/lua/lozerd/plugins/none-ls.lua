@@ -16,7 +16,7 @@ return {
                 "cssls",
                 "lua_ls",
                 "pylsp",
-                "djlint",
+                -- "djlint",
                 "isort"
             },
         })
@@ -30,24 +30,24 @@ return {
         -- ───────────────────────────────────────────────── --
         -- ─────────────────❰ FORMATTING ❱────────────────── --
 
-        if vim.fn.executable("djlint") == 1 then
-            sources[#sources + 1] = formatting.djlint.with({
-                command = "djlint",
-                args = {
-                    "--reformat",
-                    "-",
-                    "--blank-line-after-tag",
-                    "load,extends,include,endif,endfor,endcomment",
-                    "--blank-line-before-tag",
-                    "include,if,for,comment",
-                    "--max-attribute-length",
-                    "120",
-                    "--profile",
-                    "django",
-                    "--quiet",
-                },
-            })
-        end
+        -- if vim.fn.executable("djlint") == 1 then
+        --     sources[#sources + 1] = formatting.djlint.with({
+        --         command = "djlint",
+        --         args = {
+        --             "--reformat",
+        --             "-",
+        --             "--blank-line-after-tag",
+        --             "load,extends,include,endif,endfor,endcomment",
+        --             "--blank-line-before-tag",
+        --             "include,if,for,comment",
+        --             "--max-attribute-length",
+        --             "120",
+        --             "--profile",
+        --             "django",
+        --             "--quiet",
+        --         },
+        --     })
+        -- end
 
         -- ───────────────❰ end FORMATTING ❱──────────────── --
         -- ───────────────────────────────────────────────── --

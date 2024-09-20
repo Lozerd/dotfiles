@@ -1,4 +1,5 @@
 return {
+    cmd = { "basedpyright-langserver", "--stdio", "--max-old-space-size=1000" },
     -- Disable ugly Lsp syntax overriden highlighting
     -- client.server_capabilities.semanticTokensProvider = nil
     on_init = function(client, initialization_result)
@@ -17,10 +18,11 @@ return {
     settings = {
         basedpyright = {
             analysis = {
+                exclude = {'venv', 'env', '.git', '**/__pycache_', '**/.*', },
                 useLibraryCodeForTypes = true,
                 autoImportCompletions = true,
                 autoSearchPaths = true,
-                diagnosticMode = "workspace",
+                diagnosticMode = "openFilesOnly",
                 -- stubPath = "/home/lozerd/.virtualenvs/typings/",
                 typeCheckingMode = "basic",
                 -- typeshedPaths = {},
