@@ -47,6 +47,9 @@ return {
         formatters = {
             autopep8 = {
                 append_args = { "--max-line-length", "120" }
+            },
+            flake8 = {
+                prepend_args = { "--max-line-length", "120" }
             }
         }
     }
