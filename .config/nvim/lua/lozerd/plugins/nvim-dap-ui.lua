@@ -122,7 +122,8 @@ return {
 
         -- Get DJANGO_SETTINGS_MODULE
         local get_dsm = function()
-            local is_projects = vim.trim(vim.fn.system("pwd")):find(os.getenv("HOME") .. "/projects")
+            local proj_folder = os.getenv("HOME") .. "/projects"
+            local is_projects = vim.trim(vim.fn.system("pwd")):find(proj_folder)
             local dsm_path = os.getenv("DJANGO_SETTINGS_MODULE")
 
             if not is_projects then
@@ -131,7 +132,7 @@ return {
             end
 
             if not dsm_path then
-                local arguments = "find * -type f -name 'dev.py' -not -path 'env/*'"
+                local arguments = "find * -type f -name 'dev.py' -not -path " .. proj_folder .. "'/env/*'"
                 dsm_path = vim.fn.system(arguments)
 
                 if dsm_path == "" then

@@ -23,6 +23,7 @@ return {
             "kotlin_language_server",
             "clangd",
             "gopls",
+            "templ",
         }
 
         for _, server_name in pairs(server_names) do

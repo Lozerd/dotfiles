@@ -130,7 +130,7 @@
 
     ### Text ###
 
-    font = mononoki Nerd Font 8
+    font = JetBrainsMono Nerd Font
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -221,7 +221,7 @@
     min_icon_size = 32
 
     # Scale larger icons down to this size, set to 0 to disable
-    max_icon_size = 128
+    max_icon_size = 64
 
     # Paths to default icons (only necessary when not using recursive icon lookup)
     icon_path = $HOME/.icons/Tela-circle-dracula/16/actions:$HOME/.icons/Tela-circle-dracula/16/apps:$HOME/.icons/Tela-circle-dracula/16/devices:$HOME/.icons/Tela-circle-dracula/16/mimetypes:$HOME/.icons/Tela-circle-dracula/16/panel:$HOME/.icons/Tela-circle-dracula/16/places:$HOME/.icons/Tela-circle-dracula/16/status
@@ -238,13 +238,13 @@
     ### Misc/Advanced ###
 
     # dmenu path.
-    dmenu = /usr/bin/rofi -config "$HOME/.config/rofi/notification.rasi" -dmenu -p dunst:
+    # dmenu = /usr/bin/rofi -config "$HOME/.config/rofi/notification.rasi" -dmenu -p dunst:
 
     # Browser for opening urls in context menu.
-    browser = /usr/bin/xdg-open
+    # browser = /usr/bin/xdg-open
 
     # Always run rule-defined scripts, even if the notification is suppressed
-    always_run_script = true
+    # always_run_script = true
 
     # Define the title of the windows spawned by dunst
     title = Dunst

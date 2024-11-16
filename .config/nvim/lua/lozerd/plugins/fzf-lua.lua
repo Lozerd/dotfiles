@@ -1,8 +1,13 @@
 return {
     "ibhagwan/fzf-lua",
+    -- commit = "6b5c48fe40695c0b1df61c1bbf7fdcfca04c7e16",
     dependencies = {
-        "nvim-tree/nvim-web-devicons",
-        { "junegunn/fzf", build = "./install --bin" }
+        { "nvim-tree/nvim-web-devicons", config = { variant = "light|dark" } },
+        {
+            "junegunn/fzf",
+            -- commit = "a2c365e7103622cbe313f846675af0cb0826ebca",
+            build = "./install --bin"
+        }
     },
     config = function()
         local fzf = require("fzf-lua")

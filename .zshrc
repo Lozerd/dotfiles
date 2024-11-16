@@ -4,6 +4,9 @@ export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin/:$PATH
 # Node installation path
 export PATH=$PATH:/opt/node/21.5.0/bin/
 
+# Golang manual installation
+export PATH=$PATH::/usr/local/go/bin
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -129,11 +132,15 @@ export SDKMAN_DIR="$HOME/.sdkman"
 ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
 
 
+# Golang
+export GOPATH=$HOME/go/
+export PATH=$PATH:$GOPATH/bin
+
 # Enable while working with python2.7
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init - zsh)"
-# eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv init - zsh)"
+eval "$(pyenv virtualenv-init -)"
 # eval "$(pyenv virtualenv-init - | sed s/precmd/precwd/g)"
 # eval "$(zoxide init zsh --cmd cd)"
 eval "$(zoxide init zsh)"

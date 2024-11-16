@@ -2,6 +2,6 @@
 	helper = store
 [user]
 	name = Lozerd
-	email = m.drozdov@coffeestudio.ru
+	email = dmisha29411@gmail.com
 [alias]
 	cleanup = !git branch --merged|grep -iEv \"(^\\*|master|develop)\"|xargs git branch -d

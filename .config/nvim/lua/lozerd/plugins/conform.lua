@@ -43,6 +43,7 @@ return {
         formatters_by_ft = {
             lua = { "stylua" },
             python = { "autopep8" },
+            json = { "jq" },
         },
         formatters = {
             autopep8 = {

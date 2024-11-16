@@ -3,6 +3,9 @@ local configs = require("lozerd.configs")
 
 return {
     cmd = { "pylsp", "-v", "--log-file", "/tmp/nvim-pylsp.log" },
+    on_attach = function (client)
+        client.server_capabilities.renameProvider = false
+    end,
     settings = {
         pylsp = {
             plugins = {
