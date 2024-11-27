@@ -263,8 +263,11 @@ return {
                 justMyCode = default_nvim_dap_python_opts.justMyCode,
                 pythonPath = default_nvim_dap_python_opts.pythonPath,
                 args = function()
+                    table.unpack = table.unpack or unpack -- 5.1 compatibility
+
                     local args_string = vim.fn.input("Package or module: ")
-                    return { "-q", args_string }
+                    local args = vim.split(args_string, " ")
+                    return { "-q", unpack(args) }
                 end
             },
             {

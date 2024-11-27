@@ -37,6 +37,13 @@ return {
                 },
                 pyflakes = util.disabled,
                 pylint = util.disabled,
+                isort = {
+                    enabled = true,
+                    config = {
+                        line_length = 120,
+                        multi_line_output = 5,
+                    }
+                },
                 rope_autoimport = util.disabled,
                 rope_completion = util.disabled,
                 yapf = util.disabled,

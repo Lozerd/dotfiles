@@ -18,6 +18,11 @@ return {
                     cmd = "batcat"
                 }
             },
+            keymap = {
+                fzf = {
+                    ["ctrl-q"] = "select-all+accept",
+                }
+            }
         })
 
 

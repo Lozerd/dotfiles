@@ -7,6 +7,9 @@ export PATH=$PATH:/opt/node/21.5.0/bin/
 # Golang manual installation
 export PATH=$PATH::/usr/local/go/bin
 
+# Neovim installation path
+export PATH=$PATH:/opt/nvim-linux64/bin
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 

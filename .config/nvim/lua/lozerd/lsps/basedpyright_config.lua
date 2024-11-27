@@ -18,7 +18,8 @@ return {
     settings = {
         basedpyright = {
             analysis = {
-                exclude = {'venv', 'env', '.git', '**/__pycache_', '**/.*', },
+                exclude = {"venv", "env", ".git", "**/__pycache_", "**/.*", },
+                extraPaths = {"/home/lozerd/.virtualenvs/typings/lib/python3.11/site-packages/", },
                 useLibraryCodeForTypes = true,
                 autoImportCompletions = true,
                 autoSearchPaths = true,
