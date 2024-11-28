@@ -239,6 +239,7 @@
 
     # dmenu path.
     # dmenu = /usr/bin/rofi -config "$HOME/.config/rofi/notification.rasi" -dmenu -p dunst:
+    dmenu = /usr/bin/wofi -config "$HOME/.config/wofi/config" --show dmenu -p dunst
 
     # Browser for opening urls in context menu.
     # browser = /usr/bin/xdg-open

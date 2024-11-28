@@ -4,7 +4,7 @@ return {
     -- client.server_capabilities.semanticTokensProvider = nil
     on_init = function(client, initialization_result)
         if client.server_capabilities then
-            client.server_capabilities.semanticTokensProvider = false  -- turn off semantic tokens
+            client.server_capabilities.semanticTokensProvider = false -- turn off semantic tokens
         end
     end,
     capabilities = {
@@ -19,12 +19,13 @@ return {
         basedpyright = {
             analysis = {
                 exclude = {"venv", "env", ".git", "**/__pycache_", "**/.*", },
-                extraPaths = {"/home/lozerd/.virtualenvs/typings/lib/python3.11/site-packages/", },
+                -- extraPaths = {"/home/lozerd/.virtualenvs/typings/lib/python3.11/site-packages/", },
+                -- extraPaths = { '/home/lozerd/.virtualenvs/typings/' },
                 useLibraryCodeForTypes = true,
                 autoImportCompletions = true,
                 autoSearchPaths = true,
                 diagnosticMode = "openFilesOnly",
-                -- stubPath = "/home/lozerd/.virtualenvs/typings/",
+                stubPath = "/home/lozerd/.virtualenvs/typings/lib/python3.11/site-packages/",
                 typeCheckingMode = "basic",
                 -- typeshedPaths = {},
             },
