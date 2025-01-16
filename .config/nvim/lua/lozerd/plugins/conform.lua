@@ -44,6 +44,7 @@ return {
             lua = { "stylua" },
             python = { "autopep8" },
             json = { "jq" },
+            sql = { "sqlfmt" },
         },
         formatters = {
             autopep8 = {

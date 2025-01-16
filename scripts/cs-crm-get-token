@@ -1,0 +1,5 @@
+#/bin/zsh
+read -p "Enter password: " -s password;
+curl http://127.0.0.1:8000/api/auth/send-code/ -X POST --json "{\"email\": \"dmisha29411coffee@gmail.com\", \"password\": \"$password\"}";
+echo "";read -p "Enter code: " code;
+echo "{\"email\": \"dmisha29411coffee@gmail.com\", \"code\": \"$code\"}" | curl http://127.0.0.1:8000/api/auth/ -X POST --json @- | jq -r .access_token | cat
