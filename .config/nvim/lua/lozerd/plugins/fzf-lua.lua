@@ -13,18 +13,21 @@ return {
         local fzf = require("fzf-lua")
 
         fzf.setup({
-            previewers = {
-                bat = {
-                    cmd = "batcat"
-                }
+            previewers = { bat = { cmd = "batcat" } },
+            keymap = { fzf = { ["ctrl-q"] = "select-all+accept", } },
+            files = {
+                fd_opts = [[ --color=never --hidden --type f --type l -E '*min.js' -E .git ]]
             },
-            keymap = {
-                fzf = {
-                    ["ctrl-q"] = "select-all+accept",
-                }
+            grep = {
+                rg_opts = table.concat({
+                    "--column", "--line-number", "--no-heading", "--color=always", "--smart-case",
+                    "--max-columns=4096", "-g '!*.min.js'", "-e "
+                }, " "),
+            },
+            colorschemes = {
+                preview = "onedark"
             }
         })
-
 
         vim.keymap.set("n", "<leader><C-e>", fzf.oldfiles, { desc = "[C-e] View recent files" })
         vim.keymap.set("n", "<leader><space>", fzf.buffers, { desc = "[ ] Find existing buffers" })

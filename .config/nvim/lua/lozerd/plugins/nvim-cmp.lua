@@ -31,16 +31,25 @@ return {
             mapping = cmp.mapping.preset.insert({
                 ["<C-Space>"] = cmp.mapping.complete(),
                 ["<C-e>"] = cmp.mapping.close(),
-                ["<Tab>"] = cmp.mapping.confirm({
-                    behavior = cmp.ConfirmBehavior.Insert,
-                    select = true
-                }),
+                ["<Tab>"] = function(fallback)
+                    local copilot_available, copilot = pcall(require, "copilot.suggestion")
+
+                    if copilot_available and copilot.is_visible() then
+                        copilot.accept()
+                    elseif cmp.visible() then
+                        cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true })
+                    else
+                        fallback()
+                    end
+                end,
+                ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                ["<C-f>"] = cmp.mapping.scroll_docs(4),
                 ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
                 ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
                 ["<S-Tab>"] = nil
             }),
             sources = cmp.config.sources({
-                { name = 'nvim_lsp_signature_help' },
+                { name = "nvim_lsp_signature_help" },
                 { name = "nvim_lsp" },
                 { name = "luasnip" },
                 { name = "buffer" },

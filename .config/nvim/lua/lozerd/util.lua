@@ -7,19 +7,20 @@ M.disabled = { enabled = false }
 --- @param bufnr integer #The buffer number where the LSP client attached
 local function on_attach(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
+    local ks = vim.keymap.set
 
-    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-    vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts)
-    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-    vim.keymap.set("n", "<leader>vws", function(s) vim.lsp.buf.workspace_symbol(s) end, opts)
-    vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-    vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-    vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-    vim.keymap.set("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-    vim.keymap.set({ "n", "v" }, "<leader>r", function() vim.lsp.buf.rename() end, opts)
-    vim.keymap.set(
+    ks("n", "gd", function() vim.lsp.buf.definition() end, opts)
+    ks("n", "gD", function() vim.lsp.buf.declaration() end, opts)
+    ks("n", "K", function() vim.lsp.buf.hover() end, opts)
+    ks("n", "<leader>vws", function(s) vim.lsp.buf.workspace_symbol(s) end, opts)
+    ks("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+    ks("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+    ks("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+    ks("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
+    ks("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+    ks("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+    ks({ "n", "v" }, "<leader>r", function() vim.lsp.buf.rename() end, opts)
+    ks(
         "n",
         "<M-CR>",
         function()
@@ -27,7 +28,7 @@ local function on_attach(client, bufnr)
         end,
         opts
     )
-    vim.keymap.set(
+    ks(
         "n",
         "<C-A-O>",
         function()

@@ -1,17 +1,12 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin/:$PATH
 
-# Node installation path
-export PATH=$PATH:/opt/node/21.5.0/bin/
-
 # Golang manual installation
 export PATH=$PATH::/usr/local/go/bin
 
-# Neovim installation path
-export PATH=$PATH:/opt/nvim-linux64/bin
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export PAGER=less
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,

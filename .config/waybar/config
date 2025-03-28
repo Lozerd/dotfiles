@@ -76,7 +76,7 @@
     "temperature": {
         "critical-threshold": 80,
         "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
+        "format-icons": ["", "", ""]
     },
     "backlight": {
         "format": "{percent}% {icon}",
@@ -89,7 +89,7 @@
             "critical": 15
         },
         "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
+        "format-charging": "{capacity}% ",
         "format-plugged": "{capacity}% ",
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
@@ -103,8 +103,8 @@
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "Connected  ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
+        "tooltip-format": "{ifname} via {gwaddr} 󰺷",
+        "format-linked": "{ifname} (No IP) 󰺷",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "on-click-right": "bash ~/.config/rofi/wifi_menu/rofi_wifi_menu"
@@ -119,8 +119,8 @@
         "format-source-muted": "",
         "format-icons": {
             "headphone": "",
-            "hands-free": "",
-            "headset": "",
+            "hands-free": "󰂑",
+            "headset": "󰂑",
             "phone": "",
             "portable": "",
             "car": "",
@@ -134,7 +134,7 @@
         "max-length": 25,
         "format-icons": {
             "spotify": " ",
-            "default": " "
+            "default": "󰎆 "
         },
         "escape": true,
         "exec": "$HOME/.config/system_scripts/mediaplayer.py 2> /dev/null",
@@ -152,10 +152,10 @@
         "on-click-right": "killall rofi"
     },
     "custom/updater":{
-        "format": "  {} Updates",
+        "format": "󰃘  {} Updates",
         "exec": "yay -Qu | wc -l",
         "exec-if": "[[ $(yay -Qu | wc -l) != 0 ]]",
-        "interval": 60,
+        "interval": 120,
         "on-click": "alacritty -e yay -Syu"
     }
 }

@@ -24,6 +24,7 @@ return {
             "clangd",
             "gopls",
             "templ",
+            "bashls",
         }
 
         for _, server_name in pairs(server_names) do
