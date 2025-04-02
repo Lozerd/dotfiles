@@ -11,22 +11,19 @@ return {
     },
     config = function()
         local fzf = require("fzf-lua")
+        local defaults = require("fzf-lua.defaults").defaults
 
         fzf.setup({
             previewers = { bat = { cmd = "batcat" } },
             keymap = { fzf = { ["ctrl-q"] = "select-all+accept", } },
+            colorschemes = { preview = "onedark" },
             files = {
-                fd_opts = [[ --color=never --hidden --type f --type l -E '*min.js' -E .git ]]
+                fd_opts = defaults.files.fd_opts .. " --exclude '*.min.js'"
             },
             grep = {
-                rg_opts = table.concat({
-                    "--column", "--line-number", "--no-heading", "--color=always", "--smart-case",
-                    "--max-columns=4096", "-g '!*.min.js'", "-e "
-                }, " "),
+                rg_opts = "--column --line-number --no-heading --color=always --smart-case "
+                    .. "--max-columns=4096 --glob '!*.min.js' -e"
             },
-            colorschemes = {
-                preview = "onedark"
-            }
         })
 
         vim.keymap.set("n", "<leader><C-e>", fzf.oldfiles, { desc = "[C-e] View recent files" })
@@ -43,10 +40,10 @@ return {
         -- vim.keymap.set("n", "<leader>prs", fzf.live_grep_resume, { desc = "[P]roject [S]trings resume" }
 
         -- Git related staff
-        vim.keymap.set("n", "<leader>gt", fzf.git_tags, { desc = "[G]it [T]tags" })
-        vim.keymap.set("n", "<leader>gz", fzf.git_stash, { desc = "[G]it [S]stash" })
-        vim.keymap.set("n", "<leader>gf", fzf.git_files, { desc = "[G]it [F]files" })
-        vim.keymap.set("n", "<leader>gc", fzf.git_commits, { desc = "[G]it [C]commits" })
-        vim.keymap.set("n", "<leader>gb", fzf.git_branches, { desc = "[G]it [B]branches" })
+        vim.keymap.set("n", "<leader>gt", fzf.git_tags, { desc = "[G]it [T]ags" })
+        vim.keymap.set("n", "<leader>gz", fzf.git_stash, { desc = "[G]it [S]tash" })
+        vim.keymap.set("n", "<leader>gf", fzf.git_files, { desc = "[G]it [F]iles" })
+        vim.keymap.set("n", "<leader>gc", fzf.git_commits, { desc = "[G]it [C]ommits" })
+        vim.keymap.set("n", "<leader>gb", fzf.git_branches, { desc = "[G]it [B]ranches" })
     end
 }

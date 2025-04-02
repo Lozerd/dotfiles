@@ -18,15 +18,15 @@ return {
     settings = {
         basedpyright = {
             analysis = {
-                exclude = {"venv", "env", ".git", "**/__pycache__", "env/**/*", 'venv/**/*'},
-                -- extraPaths = {"/home/lozerd/.virtualenvs/typings/lib/python3.11/site-packages/", },
+                -- exclude = {"venv", "env", ".git", "**/__pycache__", "env/**/*", 'venv/**/*'},
+                extraPaths = {"/home/lozerd/.virtualenvs/typings/lib/python3.11/site-packages/", },
                 -- extraPaths = { '/home/lozerd/.virtualenvs/typings/' },
                 -- extraPaths = { "/home/lozerd/.virtualenvs/typings/lib/python3.12/site-packages/", },
                 useLibraryCodeForTypes = true,
                 autoImportCompletions = true,
                 autoSearchPaths = true,
                 diagnosticMode = "openFilesOnly",
-                stubPath = "/home/lozerd/.virtualenvs/typings/lib/python3.11/site-packages/",
+                -- stubPath = "/home/lozerd/.virtualenvs/typings/lib/python3.11/site-packages/",
                 typeCheckingMode = "basic",
                 -- typeshedPaths = {},
             },
@@ -35,7 +35,7 @@ return {
             disableOrganizeImports = false,
             disableTaggedHints = false,
             importStrategy = "fromEnvironment",
-            -- pythonPath = "python",
+            pythonPath = "python",
             -- venvPath = "env"
         },
     }

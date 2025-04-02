@@ -143,32 +143,8 @@ eval "$(pyenv virtualenv-init -)"
 # eval "$(zoxide init zsh --cmd cd)"
 eval "$(zoxide init zsh)"
 
-function activate_python_env() {
-  # builtin cd "$@"
 
-  if [[ -z "$VIRTUAL_ENV" ]] ; then
-    ## If env folder is found then activate the vitualenv
-      if [[ -d ./env ]] ; then
-        source ./env/bin/activate
-      fi
-  else
-    ## check the current folder belong to earlier VIRTUAL_ENV folder
-    # if yes then do nothing
-    # else deactivate
-      parentdir="$(dirname "$VIRTUAL_ENV")"
-      if [[ "$PWD"/ != "$parentdir"/* ]] ; then
-        deactivate
-
-
-      if [[ -z "$VIRTUAL_ENV" ]] ; then
-        ## If env folder is found then activate the vitualenv
-          if [[ -d ./env ]] ; then
-            source ./env/bin/activate
-          fi
-        fi
-      fi
-  fi
-}
+source ~/.local/bin/activate_python_env
 
 __zoxide_z () {
         if [[ "$#" -eq 0 ]]

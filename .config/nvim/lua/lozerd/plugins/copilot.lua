@@ -1,4 +1,5 @@
 return {
+<<<<<<< HEAD
     "zbirenbaum/copilot.lua",
     event = "InsertEnter",
     cmd = "Copilot",
@@ -10,4 +11,7 @@ return {
             filetypes = { python = true, javascript = true },
         })
     end
+=======
+    { "github/copilot.vim", enabled = false }
+>>>>>>> b705eb5 (feat(nvim, hypr, tmux): introduce ghostty, fzf-lua opts)
 }
