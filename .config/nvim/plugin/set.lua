@@ -12,13 +12,14 @@ vim.opt.smartindent = true
 
 -- Search options
 vim.opt.smartcase = true
-vim.opt.ignorecase = true  -- Experimental
+vim.opt.ignorecase = true -- Experimental
 
 vim.opt.wrap = false
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
 vim.opt.updatetime = 50
 
 vim.opt.hlsearch = false
