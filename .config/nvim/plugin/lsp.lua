@@ -2,6 +2,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local opts = { buffer = args.buf, remap = false }
 		local ks = vim.keymap.set
+		local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
 
 		vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
         -- stylua: ignore start
@@ -29,10 +30,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		-- git-blame
 		vim.keymap.set("n", "<leader>gbo", "<cmd>GitBlameOpenCommitURL<CR>", opts)
+
+		if client.name == "basedpyright" then
+			client.server_capabilities.semanticTokensProvider = nil
+		end
+
+		if client.name == "pylsp" and vim.fn.executable("basedpyright") ~= 0 then
+			client.server_capabilities.hoverProvider = nil
+		end
 	end,
 })
 
-if vim.fn.has("nvim-0.10") ~= 0 then
+if vim.fn.has("nvim-0.10") == 0 then
 	local signs = { Error = " ", Warn = " ", Hint = "󰌶", Info = " " }
 	for type, icon in pairs(signs) do
 		local hl = "DiagnosticSign" .. type
@@ -44,7 +53,7 @@ local severity = vim.diagnostic.severity
 
 vim.diagnostic.config({
 	underline = true,
-	virtual_text = { prefix = "●" },
+	virtual_text = { spacing = 4, prefix = "●" },
 	-- virtual_text = { spacing = 4, prefix = "\u{ea71}" },
 	update_in_insert = true,
 	float = { source = false },
@@ -54,20 +63,6 @@ vim.diagnostic.config({
 		[severity.WARN] = " ",
 		[severity.HINT] = "󰌶",
 		[severity.INFO] = " ",
-	},
-})
-
-vim.lsp.config("lua_ls", {
-	cmd = { "lua-language-server" },
-	filetypes = { "lua" },
-	root_markers = { ".luarc.json", ".luarc.jsonc", ".git" },
-	settings = {
-		Lua = {
-			runtime = { version = "LuaJIT" },
-			diagnostics = { globals = { "vim" } },
-			workspace = { checkThirdParty = false },
-			telemetry = { enable = false },
-		},
 	},
 })
 

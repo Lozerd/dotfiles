@@ -7,8 +7,15 @@ return {
 		"onsails/lspkind.nvim",
 		"L3MON4D3/LuaSnip",
 	},
+	---@module 'blink.cmp'
+	---@type blink.cmp.Config
 	opts = {
 		completion = {
+			ghost_text = { enabled = true, show_without_menu = true },
+			trigger = {
+				show_on_trigger_character = true,
+				show_on_insert_on_trigger_character = true,
+			},
 			list = {
 				cycle = {
 					from_top = true,
@@ -16,6 +23,7 @@ return {
 				},
 			},
 			menu = {
+				auto_show = false,
 				draw = {
 					components = {
 						kind_icon = {
@@ -58,9 +66,13 @@ return {
 			["<S-Tab>"] = nil,
 		},
 		sources = {
-			default = { 
-                -- "lazydev", 
-                "lsp", "path", "snippets", "buffer" },
+			default = {
+				-- "lazydev",
+				"lsp",
+				"path",
+				"snippets",
+				"buffer",
+			},
 			-- per_filetype = {
 			-- 	sql = { "dadbod" },
 			-- 	lua = { inherit_defaults = true, "lazydev" },
