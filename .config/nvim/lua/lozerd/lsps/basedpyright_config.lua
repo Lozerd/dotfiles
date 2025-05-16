@@ -19,7 +19,7 @@ return {
         basedpyright = {
             analysis = {
                 -- exclude = {"venv", "env", ".git", "**/__pycache__", "env/**/*", 'venv/**/*'},
-                extraPaths = {"/home/lozerd/.virtualenvs/typings/lib/python3.11/site-packages/", },
+                -- extraPaths = {"/home/lozerd/.virtualenvs/typings/lib/python3.11/site-packages/", },
                 -- extraPaths = { '/home/lozerd/.virtualenvs/typings/' },
                 -- extraPaths = { "/home/lozerd/.virtualenvs/typings/lib/python3.12/site-packages/", },
                 useLibraryCodeForTypes = true,
