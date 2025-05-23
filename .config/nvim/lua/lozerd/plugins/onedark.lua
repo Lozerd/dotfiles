@@ -1,7 +1,7 @@
 return {
     "navarasu/onedark.nvim",
     config = function()
-        onedark = require("onedark")
+        local onedark = require("onedark")
 
         onedark.setup {
             -- Main options --

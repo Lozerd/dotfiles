@@ -1,10 +1,4 @@
 return {
-    "kevinhwang91/nvim-bqf",
-    config = function()
-        local bqf = require("bqf")
-
-        bqf.setup({
-            auto_enable = true
-        })
-    end
+	"kevinhwang91/nvim-bqf",
+	opts = { auto_enable = true },
 }

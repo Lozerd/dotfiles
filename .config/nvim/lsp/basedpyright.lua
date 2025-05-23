@@ -17,8 +17,7 @@ end
 return {
 	cmd = { "basedpyright-langserver", "--stdio", "--max-old-space-size=1000" },
 	filetypes = { "python" },
-    -- Disable ugly Lsp syntax overriden highlighting
-	capabilities = { textDocument = { semanticTokens = nil } },
+	-- Disable ugly Lsp syntax overriden highlighting
 	settings = {
 		basedpyright = {
 			analysis = {

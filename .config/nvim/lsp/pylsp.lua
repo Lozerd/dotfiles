@@ -1,6 +1,8 @@
 return {
 	cmd = { "pylsp", "-v", "--log-file", "/tmp/nvim-pylsp.log" },
 	filetypes = { "python" },
+	--- @type lsp.ClientCapabilities
+	capabilities = { textDocument = { hover = nil } },
 	settings = {
 		pylsp = {
 			plugins = {

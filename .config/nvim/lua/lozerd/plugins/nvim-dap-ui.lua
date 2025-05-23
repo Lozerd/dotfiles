@@ -106,7 +106,10 @@ return {
 
 		vim.keymap.set("n", "<leader>df", function()
 			local widgets = require("dap.ui.widgets")
-			widgets.centered_float(widgets.frames)
+			local view = widgets.centered_float(widgets.frames)
+			vim.keymap.set("n", "q", function()
+				view.close()
+			end, { buffer = view.buf })
 		end)
 
 		-------------------

@@ -1,10 +1,8 @@
 return {
-    "stevearc/dressing.nvim",
-    config = function()
-        require("dressing").setup({
-            select = {
-                backend = { "fzf_lua", "fzf", "builtin" },
-            }
-        })
-    end,
+	"stevearc/dressing.nvim",
+	opts = {
+		select = {
+			backend = { "fzf_lua", "fzf", "builtin" },
+		},
+	},
 }

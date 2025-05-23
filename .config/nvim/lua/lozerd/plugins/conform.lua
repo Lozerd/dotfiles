@@ -14,6 +14,7 @@ return {
 		{
 			"<leader>f",
 			function()
+				local conform = require("conform")
 				-- Function to format the selected range
 				local function format_range(start_line, end_line)
 					require("conform").format({
@@ -41,6 +42,8 @@ return {
 			python = { "autopep8" },
 			json = { "jq" },
 			sql = { "sqlfmt" },
+			html = { "djlint" },
+			htmldjango = { "djlint" },
 		},
 		formatters = {
 			autopep8 = {

@@ -11,7 +11,7 @@ return {
 	---@type blink.cmp.Config
 	opts = {
 		completion = {
-			ghost_text = { enabled = true, show_without_menu = true },
+			ghost_text = { enabled = true, show_with_menu = false },
 			trigger = {
 				show_on_trigger_character = true,
 				show_on_insert_on_trigger_character = true,
@@ -63,7 +63,7 @@ return {
 			},
 			["<C-p>"] = { "select_prev" },
 			["<C-n>"] = { "select_next" },
-			["<S-Tab>"] = nil,
+			["<S-Tab>"] = {},
 		},
 		sources = {
 			default = {
