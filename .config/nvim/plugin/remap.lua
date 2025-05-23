@@ -1,15 +1,15 @@
 local set = vim.keymap.set
 
 local function explorer_with_fallback()
-  local ok, err = pcall(vim.cmd, "Oil")
-  if not ok then
-    vim.cmd("Ex")
-    vim.notify("Oil not found, falling back to netrw (:Ex)", vim.log.levels.WARN)
-  end
+	local ok, err = pcall(vim.cmd, "Oil")
+	if not ok then
+		vim.cmd("Ex")
+		vim.notify("Oil not found, falling back to netrw (:Ex)", vim.log.levels.WARN)
+	end
 end
 
-set("n", "<leader>pv", explorer_with_fallback, {desc="Navigate file explorer"})
-set("n", "<leader>x", "<cmd>.lua<CR>", {desc="Source line"})
+set("n", "<leader>pv", explorer_with_fallback, { desc = "Navigate file explorer" })
+set("n", "<leader>x", "<cmd>.lua<CR>", { desc = "Source line" })
 
 -- New Tab
 set("n", "te", ":tabedit<Return>", { silent = true })
@@ -28,6 +28,8 @@ set("n", "<C-w><down>", "<C-w>-")
 
 set("n", "<A-Left>", ":tabprevious<Return>", { silent = true })
 set("n", "<A-Right>", ":tabnext<Return>", { silent = true })
+
+set("t", "<ESC>", "<C-\\><C-n>")
 
 set("", "sh", "<C-w>h")
 set("", "sk", "<C-w>k")

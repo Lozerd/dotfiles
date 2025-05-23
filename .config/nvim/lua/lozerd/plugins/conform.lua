@@ -16,7 +16,7 @@ return {
 			function()
 				-- Function to format the selected range
 				local function format_range(start_line, end_line)
-					conform.format({
+					require("conform").format({
 						async = true,
 						bufnr = vim.api.nvim_get_current_buf(),
 						start_line = start_line,

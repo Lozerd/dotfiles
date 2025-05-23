@@ -28,9 +28,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.lsp.buf.code_action({ filter = filter, apply = true })
 		end, opts)
 
-		-- git-blame
-		vim.keymap.set("n", "<leader>gbo", "<cmd>GitBlameOpenCommitURL<CR>", opts)
-
 		if client.name == "basedpyright" then
 			client.server_capabilities.semanticTokensProvider = nil
 		end

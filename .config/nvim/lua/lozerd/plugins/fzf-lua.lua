@@ -45,6 +45,6 @@ return {
         vim.keymap.set("n", "<leader>gz", fzf.git_stash, { desc = "[G]it [S]tash" })
         vim.keymap.set("n", "<leader>gf", fzf.git_files, { desc = "[G]it [F]iles" })
         vim.keymap.set("n", "<leader>gc", fzf.git_commits, { desc = "[G]it [C]ommits" })
-        vim.keymap.set("n", "<leader>gb", fzf.git_branches, { desc = "[G]it [B]ranches" })
+        vim.keymap.set("n", "<leader>gbr", fzf.git_branches, { desc = "[G]it [B][R]anches" })
     end
 }
