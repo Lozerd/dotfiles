@@ -20,18 +20,10 @@ fi
 
 if ! tmux has-session -t=$selected_name 2> /dev/null; then
     tmux new-session -ds $selected_name -c $selected
-<<<<<<< HEAD
-fi
-
-=======
-
     source ~/.local/bin/activate_python_env
 
     tmux send-keys -t $selected_name activate_python_env ENTER
     tmux send-keys -t $selected_name clear ENTER
 fi
 
-
-
->>>>>>> b705eb5 (feat(nvim, hypr, tmux): introduce ghostty, fzf-lua opts)
 tmux switch-client -t $selected_name

@@ -1,2 +1,4 @@
-cliphist list | wofi --dmenu --pre-display-cmd "echo '%s' | cut -f 2" | cliphist decode | wl-copy
+# --pre-display-cmd "echo '%s' | cut -f 2"  # Breaks on quoted input
+cliphist list | wofi --dmenu | cliphist decode | wl-copy
+
 

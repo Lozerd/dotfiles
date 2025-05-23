@@ -167,3 +167,6 @@ cd() { __zoxide_z "$@" }
 \builtin alias cdi=__zoxide_zi
 
 # [[ -s "/home/lozerd/.gvm/scripts/gvm" ]] && source "/home/lozerd/.gvm/scripts/gvm"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
