@@ -48,9 +48,11 @@ return {
 			},
 		},
 		keymap = {
+			preset = "none",
 			["<C-Space>"] = { "show" },
 			["<C-e>"] = { "hide" },
-			["<Tab>"] = { "accept", "fallback" },
+			["<Tab>"] = { "accept", "snippet_forward", "fallback" },
+			["<S-Tab>"] = { "snippet_backward" },
 			["<C-b>"] = {
 				function(cmp)
 					cmp.scroll_documentation_down(4)
@@ -63,7 +65,6 @@ return {
 			},
 			["<C-p>"] = { "select_prev" },
 			["<C-n>"] = { "select_next" },
-			["<S-Tab>"] = {},
 		},
 		sources = {
 			default = {

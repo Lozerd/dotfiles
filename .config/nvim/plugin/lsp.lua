@@ -65,4 +65,4 @@ vim.diagnostic.config({
 	},
 })
 
-vim.lsp.enable({ "basedpyright", "pylsp", "lua_ls", "ts_ls", "djlsp" })
+vim.lsp.enable({ "basedpyright", "pylsp", "lua_ls", "ts_ls", "djlsp", "golsp", "clangd" })

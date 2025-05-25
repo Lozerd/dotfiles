@@ -47,6 +47,9 @@ return {
             },
         }
         onedark.load()
-        vim.cmd.colorscheme "onedark"
+        vim.cmd.colorscheme("onedark")
+
+        -- Disable SnippetTabstop visual-select-like highlight, eww!
+        vim.api.nvim_set_hl(0, "SnippetTabstop", { underline = true, bg = "NONE", fg = "NONE" })
     end
 }
