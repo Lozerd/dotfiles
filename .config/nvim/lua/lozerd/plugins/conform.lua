@@ -13,25 +13,7 @@ return {
 		},
 		{
 			"<leader>f",
-			function()
-				local conform = require("conform")
-				-- Function to format the selected range
-				local function format_range(start_line, end_line)
-					require("conform").format({
-						async = true,
-						bufnr = vim.api.nvim_get_current_buf(),
-						start_line = start_line,
-						end_line = end_line,
-					})
-				end
-
-				-- Create a proper user command with -range support
-				vim.api.nvim_create_user_command("FormatRange", function(opts)
-					format_range(opts.line1, opts.line2)
-				end, { range = true, desc = "Format a range using conform.nvim" })
-
-				vim.api.nvim_set_keymap("v", "<leader>f", "<cmd>FormatRange<CR>", { noremap = true, silent = true })
-			end,
+			"<cmd>FormatRange<CR>",
 			mode = "v",
 			desc = "Format buffer (range)",
 		},
@@ -49,7 +31,6 @@ return {
 			autopep8 = {
 				append_args = { "--max-line-length", "120" },
 			},
-			-- Deprecated/invalid?
 			-- flake8 = {
 			--     prepend_args = { "--max-line-length", "120" }
 			-- }

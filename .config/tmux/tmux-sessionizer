@@ -20,10 +20,12 @@ fi
 
 if ! tmux has-session -t=$selected_name 2> /dev/null; then
     tmux new-session -ds $selected_name -c $selected
+
     source ~/.local/bin/activate_python_env
 
     tmux send-keys -t $selected_name activate_python_env ENTER
     tmux send-keys -t $selected_name clear ENTER
 fi
+
 
 tmux switch-client -t $selected_name
