@@ -31,6 +31,20 @@ return {
 			autopep8 = {
 				append_args = { "--max-line-length", "120" },
 			},
+			djlint = {
+				append_args = {
+					"--blank-line-after-tag",
+					"load,extends,include,endif,endfor,endcomment",
+					"--blank-line-before-tag",
+					"include,if,for,comment",
+					"--max-attribute-length",
+					"120",
+					"--profile",
+					"django",
+					"--quiet",
+				},
+			},
+			-- Deprecated/invalid?
 			-- flake8 = {
 			--     prepend_args = { "--max-line-length", "120" }
 			-- }

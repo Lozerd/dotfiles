@@ -3,13 +3,30 @@ return {
 	lazy = false,
 	version = "1.*",
 	dependencies = {
-		"rafamadriz/friendly-snippets",
 		"onsails/lspkind.nvim",
-		"L3MON4D3/LuaSnip",
+		{
+			"L3MON4D3/LuaSnip",
+			build = "make install_jsregexp",
+			dependencies = {
+				{
+					"rafamadriz/friendly-snippets",
+					config = function()
+						require("luasnip.loaders.from_vscode").lazy_load()
+						-- Optionally load custom snippets too
+						require("luasnip.loaders.from_vscode").lazy_load({
+							paths = { vim.fn.stdpath("config") .. "/snippets" },
+						})
+					end,
+				},
+			},
+		},
 	},
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = {
+		snippets = {
+			preset = "luasnip",
+		},
 		completion = {
 			ghost_text = { enabled = true, show_with_menu = false },
 			trigger = {
@@ -51,7 +68,7 @@ return {
 			preset = "none",
 			["<C-Space>"] = { "show" },
 			["<C-e>"] = { "hide" },
-			["<Tab>"] = { "accept", "snippet_forward", "fallback" },
+			["<Tab>"] = { "snippet_forward", "accept", "fallback" },
 			["<S-Tab>"] = { "snippet_backward" },
 			["<C-b>"] = {
 				function(cmp)
