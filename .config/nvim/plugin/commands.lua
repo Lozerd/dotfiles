@@ -16,14 +16,14 @@ vim.api.nvim_create_user_command("FormatRange", function(opts)
 end, { range = true, desc = "Format a range using conform.nvim" })
 
 -- Go to the last cursor position when reopening buffer
-vim.api.nvim_create_autocmd("BufReadPost", {
-	group = lozerdGroup,
-	desc = "Restore last cursor position",
-	callback = function()
-		vim.defer_fn(function()
-			if vim.fn.line("'\"") > 1 and vim.fn.line("'\"") <= vim.fn.line("$") then
-				vim.cmd('normal! g`"')
-			end
-		end, 0)
-	end,
-})
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+-- 	group = lozerdGroup,
+-- 	desc = "Restore last cursor position",
+-- 	callback = function()
+-- 		vim.defer_fn(function()
+-- 			if vim.fn.line("'\"") > 1 and vim.fn.line("'\"") <= vim.fn.line("$") then
+-- 				vim.cmd('normal! g`"')
+-- 			end
+-- 		end, 0)
+-- 	end,
+-- })

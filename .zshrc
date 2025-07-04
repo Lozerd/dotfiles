@@ -1,6 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin/:$PATH
 
+# # Node installation path
+# export PATH=$PATH:/opt/node/21.5.0/bin/
+
 # Golang manual installation
 export PATH=$PATH::/usr/local/go/bin
 
@@ -122,12 +125,12 @@ source $ZSH_CUSTOM/aliases.zsh
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 
-___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
 
 
 # Golang
@@ -143,8 +146,32 @@ eval "$(pyenv virtualenv-init -)"
 # eval "$(zoxide init zsh --cmd cd)"
 eval "$(zoxide init zsh)"
 
+function activate_python_env() {
+  # builtin cd "$@"
 
-source ~/.local/bin/activate_python_env
+  if [[ -z "$VIRTUAL_ENV" ]] ; then
+    ## If env folder is found then activate the vitualenv
+      if [[ -d ./env ]] ; then
+        source ./env/bin/activate
+      fi
+  else
+    ## check the current folder belong to earlier VIRTUAL_ENV folder
+    # if yes then do nothing
+    # else deactivate
+      parentdir="$(dirname "$VIRTUAL_ENV")"
+      if [[ "$PWD"/ != "$parentdir"/* ]] ; then
+        deactivate
+
+
+      if [[ -z "$VIRTUAL_ENV" ]] ; then
+        ## If env folder is found then activate the vitualenv
+          if [[ -d ./env ]] ; then
+            source ./env/bin/activate
+          fi
+        fi
+      fi
+  fi
+}
 
 __zoxide_z () {
         if [[ "$#" -eq 0 ]]
@@ -167,6 +194,4 @@ cd() { __zoxide_z "$@" }
 \builtin alias cdi=__zoxide_zi
 
 # [[ -s "/home/lozerd/.gvm/scripts/gvm" ]] && source "/home/lozerd/.gvm/scripts/gvm"
-
-# Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
