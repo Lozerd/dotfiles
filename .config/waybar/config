@@ -148,7 +148,7 @@
     },
     "custom/power":{
         "format": "",
-        "on-click": "bash ~/.config/waybar/powermenu.sh",
+        "on-click": "~/.config/hypr/scripts/custom-exit",
         "on-click-right": "killall rofi"
     },
     "custom/updater":{
