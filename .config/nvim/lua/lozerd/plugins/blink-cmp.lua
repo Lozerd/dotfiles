@@ -20,6 +20,12 @@ return {
 				},
 			},
 		},
+		{
+			"supermaven-inc/supermaven-nvim",
+			config = function()
+				require("supermaven-nvim").setup({})
+			end,
+		},
 	},
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
@@ -68,7 +74,7 @@ return {
 			preset = "none",
 			["<C-Space>"] = { "show" },
 			["<C-e>"] = { "hide" },
-			["<Tab>"] = { "snippet_forward", "accept", "fallback" },
+			["<Tab>"] = { "accept", "snippet_forward", "fallback" },
 			["<S-Tab>"] = { "snippet_backward" },
 			["<C-b>"] = {
 				function(cmp)
@@ -86,11 +92,18 @@ return {
 		sources = {
 			default = {
 				-- "lazydev",
+                "supermaven",
 				"lsp",
 				"path",
 				"snippets",
 				"buffer",
 			},
+            providers ={
+                supermaven = {
+                    name = "supermaven",
+                    module = "supermaven-nvim.cmp"
+                }
+            },
 			-- per_filetype = {
 			-- 	sql = { "dadbod" },
 			-- 	lua = { inherit_defaults = true, "lazydev" },
