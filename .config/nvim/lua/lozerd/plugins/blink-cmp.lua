@@ -23,8 +23,23 @@ return {
 		{
 			"supermaven-inc/supermaven-nvim",
 			config = function()
-				require("supermaven-nvim").setup({})
+				local supermaven = require("supermaven-nvim")
+				local log = require("supermaven-nvim.logger")
+
+				supermaven.setup({})
+				-- Disable pesky hardcoded vim.api.nvim_notify in log.warn
+				log.warn = function(msg)
+					---@diagnostic disable-next-line: undefined-global
+					self:add_entry("warn", msg)
+				end
 			end,
+			opts = {
+				disable_inline_completion = true, -- disables inline completion for use with cmp
+				disable_keymaps = true, -- disables built in keymaps for more manual control
+			},
+		},
+		{
+			"huijiro/blink-cmp-supermaven",
 		},
 	},
 	---@module 'blink.cmp'
@@ -74,7 +89,7 @@ return {
 			preset = "none",
 			["<C-Space>"] = { "show" },
 			["<C-e>"] = { "hide" },
-			["<Tab>"] = { "accept", "snippet_forward", "fallback" },
+			["<Tab>"] = { "select_and_accept", "snippet_forward", "fallback" },
 			["<S-Tab>"] = { "snippet_backward" },
 			["<C-b>"] = {
 				function(cmp)
@@ -92,18 +107,19 @@ return {
 		sources = {
 			default = {
 				-- "lazydev",
-                "supermaven",
+				"supermaven",
 				"lsp",
 				"path",
 				"snippets",
 				"buffer",
 			},
-            providers ={
-                supermaven = {
-                    name = "supermaven",
-                    module = "supermaven-nvim.cmp"
-                }
-            },
+			providers = {
+				supermaven = {
+					name = "supermaven",
+					module = "blink-cmp-supermaven",
+					async = true,
+				},
+			},
 			-- per_filetype = {
 			-- 	sql = { "dadbod" },
 			-- 	lua = { inherit_defaults = true, "lazydev" },
