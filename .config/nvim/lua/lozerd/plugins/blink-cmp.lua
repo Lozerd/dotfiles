@@ -22,18 +22,19 @@ return {
 		},
 		{
 			"supermaven-inc/supermaven-nvim",
-			config = function()
+			config = function(opts)
 				local supermaven = require("supermaven-nvim")
 				local log = require("supermaven-nvim.logger")
 
-				supermaven.setup({})
+				supermaven.setup(opts)
 				-- Disable pesky hardcoded vim.api.nvim_notify in log.warn
-				log.warn = function(msg)
-					---@diagnostic disable-next-line: undefined-global
-					self:add_entry("warn", msg)
-				end
+                ---@diagnostic disable-next-line: unused-local
+				local mock = function(msg) end
+				log.warn = mock
+				log.error = mock
 			end,
 			opts = {
+				log_level = "off",
 				disable_inline_completion = true, -- disables inline completion for use with cmp
 				disable_keymaps = true, -- disables built in keymaps for more manual control
 			},
