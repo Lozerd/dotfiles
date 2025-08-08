@@ -39,6 +39,8 @@ return {
 					"include,if,for,comment",
 					"--max-attribute-length",
 					"120",
+                    "--custom-blocks",
+                    "recursetree, endrecursetree",
 					"--profile",
 					"django",
 					"--quiet",

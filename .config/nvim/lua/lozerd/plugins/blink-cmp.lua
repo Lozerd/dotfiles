@@ -118,7 +118,7 @@ return {
 				supermaven = {
 					name = "supermaven",
 					module = "blink-cmp-supermaven",
-					async = true,
+					async = false,
 				},
 			},
 			-- per_filetype = {
