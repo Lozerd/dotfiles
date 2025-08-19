@@ -28,7 +28,7 @@ return {
 
 				supermaven.setup(opts)
 				-- Disable pesky hardcoded vim.api.nvim_notify in log.warn
-                ---@diagnostic disable-next-line: unused-local
+				---@diagnostic disable-next-line: unused-local
 				local mock = function(msg) end
 				log.warn = mock
 				log.error = mock
@@ -39,9 +39,7 @@ return {
 				disable_keymaps = true, -- disables built in keymaps for more manual control
 			},
 		},
-		{
-			"huijiro/blink-cmp-supermaven",
-		},
+		{ "huijiro/blink-cmp-supermaven" },
 	},
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config

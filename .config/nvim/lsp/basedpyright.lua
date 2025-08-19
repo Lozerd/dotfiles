@@ -27,7 +27,6 @@ return {
 				diagnosticMode = "openFilesOnly",
 				typeCheckingMode = "basic",
 			},
-
 			disableLanguageServices = false,
 			disableOrganizeImports = false,
 			disableTaggedHints = false,

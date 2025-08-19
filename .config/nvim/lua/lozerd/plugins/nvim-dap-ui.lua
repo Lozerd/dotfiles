@@ -73,10 +73,7 @@ return {
 		-- <C-F1> through <C-F12> maps to <F25> through <F36>
 		-- <C-A-F1> through <C-A-F12> maps to <F49> through <F60>
 
-		vim.keymap.set("n", "<F9>", function()
-			dapui.close()
-			dap.continue()
-		end)
+		vim.keymap.set("n", "<F9>", dap.continue)
 		vim.keymap.set("n", "<S-F9>", function()
 			dapui.close()
 			dap.restart()

@@ -1,3 +1,4 @@
+local disabled = { enabled = false }
 return {
 	cmd = { "pylsp", "-v", "--log-file", "/tmp/nvim-pylsp.log" },
 	filetypes = { "python" },
@@ -7,24 +8,22 @@ return {
 		pylsp = {
 			plugins = {
 				autopep8 = { enabled = true, maxLineLength = 120 },
-				-- autopep8 = disabled,
 				flake8 = {
-					enabled = true,
+					enabled = false,
 					config = vim.fn.getcwd() .. "/tox.ini",
 					maxLineLength = 120,
 					maxComplexity = 15,
 				},
-				jedi = { enabled = false },
-				jedi_completion = { enabled = false },
-				jedi_definition = { enabled = false },
-				jedi_hover = { enabled = false },
-				jedi_references = { enabled = false },
-				jedi_signature_help = { enabled = false },
-				jedi_symbols = { enabled = false },
-				mccabe = { enabled = false },
-				preload = { enabled = false },
+				jedi = disabled,
+				jedi_completion = disabled,
+				jedi_definition = disabled,
+				jedi_hover = disabled,
+				jedi_references = disabled,
+				jedi_signature_help = disabled,
+				jedi_symbols = disabled,
+				mccabe = disabled,
+				preload = disabled,
 				pycodestyle = { enabled = false, maxLineLength = 120 },
-				-- pycodestyle = { enabled = false },
 				pydocstyle = {
 					enabled = true,
 					ignore = {
@@ -40,8 +39,8 @@ return {
 						"D205",
 					},
 				},
-				pyflakes = { enabled = false },
-				pylint = { enabled = false },
+				pyflakes = disabled,
+				pylint = disabled,
 				isort = {
 					enabled = true,
 					config = {
@@ -49,10 +48,10 @@ return {
 						multi_line_output = 5,
 					},
 				},
-				rope_autoimport = { enabled = false },
-				rope_completion = { enabled = false },
-				yapf = { enabled = false },
-				black = { enabled = false },
+				rope_autoimport = disabled,
+				rope_completion = disabled,
+				yapf = disabled,
+				black = disabled,
 				rope = { ropeFolder = ".ropeproject" },
 			},
 		},
