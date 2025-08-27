@@ -21,7 +21,7 @@ return {
 	opts = {
 		formatters_by_ft = {
 			lua = { "stylua" },
-			python = { "autopep8" },
+			python = { "autopep8", "ruff_fix" },
 			json = { "jq" },
 			sql = { "sqlfmt" },
 			html = { "djlint" },

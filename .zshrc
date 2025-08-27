@@ -131,20 +131,19 @@ source <(fzf --zsh)
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 
-
-
 # Golang
 export GOPATH=$HOME/go/
 export PATH=$PATH:$GOPATH/bin
 
 # Enable while working with python2.7
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
-eval "$(pyenv virtualenv-init -)"
+# export PYENV_ROOT="$HOME/.pyenv"
+# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init - zsh)"
+# eval "$(pyenv virtualenv-init -)"
 # eval "$(pyenv virtualenv-init - | sed s/precmd/precwd/g)"
 # eval "$(zoxide init zsh --cmd cd)"
 eval "$(zoxide init zsh)"
+eval "$(thefuck --alias)"
 
 function activate_python_env() {
   # builtin cd "$@"
