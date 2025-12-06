@@ -26,6 +26,10 @@ return {
 				autoSearchPaths = true,
 				diagnosticMode = "openFilesOnly",
 				typeCheckingMode = "basic",
+                extraPaths = {
+                    './externals/apps/',
+                    './externals/libs/'
+                }
 			},
 			disableLanguageServices = false,
 			disableOrganizeImports = false,

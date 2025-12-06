@@ -89,6 +89,7 @@ plugins=(
     zsh-history-substring-search
     zsh-syntax-highlighting
     zsh-nvm
+    kubectl-autocomplete
 )
 
 unsetopt share_history
@@ -121,9 +122,9 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source $ZSH_CUSTOM/aliases.zsh
+source ~/.zsh_functions
 
-
-fpath+=${ZDOTDIR:-~}/.zsh_functions
+# fpath+=${ZDOTDIR:-~}/.zsh_functions
 
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
@@ -135,6 +136,9 @@ export SDKMAN_DIR="$HOME/.sdkman"
 export GOPATH=$HOME/go/
 export PATH=$PATH:$GOPATH/bin
 
+# [[ -s "/home/lozerd/.gvm/scripts/gvm" ]] && source "/home/lozerd/.gvm/scripts/gvm"
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
+
 # Enable while working with python2.7
 # export PYENV_ROOT="$HOME/.pyenv"
 # [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
@@ -145,52 +149,3 @@ export PATH=$PATH:$GOPATH/bin
 eval "$(zoxide init zsh)"
 eval "$(thefuck --alias)"
 
-function activate_python_env() {
-  # builtin cd "$@"
-
-  if [[ -z "$VIRTUAL_ENV" ]] ; then
-    ## If env folder is found then activate the vitualenv
-      if [[ -d ./env ]] ; then
-        source ./env/bin/activate
-      fi
-  else
-    ## check the current folder belong to earlier VIRTUAL_ENV folder
-    # if yes then do nothing
-    # else deactivate
-      parentdir="$(dirname "$VIRTUAL_ENV")"
-      if [[ "$PWD"/ != "$parentdir"/* ]] ; then
-        deactivate
-
-
-      if [[ -z "$VIRTUAL_ENV" ]] ; then
-        ## If env folder is found then activate the vitualenv
-          if [[ -d ./env ]] ; then
-            source ./env/bin/activate
-          fi
-        fi
-      fi
-  fi
-}
-
-__zoxide_z () {
-        if [[ "$#" -eq 0 ]]
-        then
-                __zoxide_cd ~
-        elif [[ "$#" -eq 1 ]] && {
-                        [[ -d "$1" ]] || [[ "$1" = '-' ]] || [[ "$1" =~ ^[-+][0-9]$ ]]
-                }
-        then
-                __zoxide_cd "$1"
-                activate_python_env
-        else
-                \builtin local result
-                result="$(\command zoxide query --exclude "$(__zoxide_pwd)" -- "$@")"  && __zoxide_cd "${result}"
-                activate_python_env
-        fi
-}
-
-cd() { __zoxide_z "$@" }
-\builtin alias cdi=__zoxide_zi
-
-# [[ -s "/home/lozerd/.gvm/scripts/gvm" ]] && source "/home/lozerd/.gvm/scripts/gvm"
-___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi

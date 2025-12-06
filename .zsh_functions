@@ -1,0 +1,75 @@
+function activate_python_env() {
+  # builtin cd "$@"
+
+  if [[ -z "$VIRTUAL_ENV" ]] ; then
+    ## If env folder is found then activate the vitualenv
+    if [[ -d ./env ]] ; then
+      source ./env/bin/activate
+    fi
+  else
+    ## check the current folder belong to earlier VIRTUAL_ENV folder
+    # if yes then do nothing
+    # else deactivate
+    parentdir="$(dirname "$VIRTUAL_ENV")"
+    if [[ "$PWD"/ != "$parentdir"/* ]] ; then
+      deactivate
+
+
+    if [[ -z "$VIRTUAL_ENV" ]] ; then
+        ## If env folder is found then activate the vitualenv
+        if [[ -d ./env ]] ; then
+          source ./env/bin/activate
+        fi
+      fi
+    fi
+  fi
+}
+
+__zoxide_z () {
+        if [[ "$#" -eq 0 ]]
+        then
+                __zoxide_cd ~
+        elif [[ "$#" -eq 1 ]] && {
+                        [[ -d "$1" ]] || [[ "$1" = '-' ]] || [[ "$1" =~ ^[-+][0-9]$ ]]
+                }
+        then
+                __zoxide_cd "$1"
+                activate_python_env
+        else
+                \builtin local result
+                result="$(\command zoxide query --exclude "$(__zoxide_pwd)" -- "$@")"  && __zoxide_cd "${result}"
+                activate_python_env
+        fi
+}
+
+cd() { __zoxide_z "$@" }
+\builtin alias cdi=__zoxide_zi
+
+
+wgup () {
+    if [[ "$#" -eq 0 ]]
+    then
+        echo "no wg config supplied"
+    else
+        sudo wg-quick up "$1"
+    fi
+}
+
+wgdown () {
+    if [[ "$#" -eq 0 ]]
+    then
+        echo "no wg config supplied"
+    else
+        sudo wg-quick down "$1"
+    fi
+}
+
+wgrestart () {
+    if [[ "$#" -eq 0 ]]
+    then
+        echo "no wg config supplied"
+    else
+        wgdown "$1"
+        wgup "$1"
+    fi
+}

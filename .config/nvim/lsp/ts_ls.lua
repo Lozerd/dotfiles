@@ -1,6 +1,11 @@
 return {
 	init_options = { hostInfo = "neovim" },
-	cmd = { "typescript-language-server", "--stdio" },
+	cmd = {
+		"node",
+		"--max-old-space-size=1536",
+		vim.fn.exepath("typescript-language-server"),
+		"--stdio",
+	},
 	filetypes = {
 		"javascript",
 		"javascriptreact",

@@ -1,3 +1,5 @@
 alias mysql="mariadb"
 alias yayy="yay --noconfirm"
 alias djshell="env/bin/python manage.py shell"
+alias reset_time="sudo ntpd -qg; sudo hwclock --systohc"
+alias camera="ffplay /dev/video0"

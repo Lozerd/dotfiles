@@ -12,3 +12,18 @@ end
 vim.api.nvim_create_user_command("FormatRange", function(opts)
 	format_range(opts.line1, opts.line2)
 end, { range = true, desc = "Format a range using conform.nvim" })
+
+-- Enable conceal for markdown and json files only
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "markdown", "rst", "json", "tex" },
+	callback = function()
+		vim.opt_local.conceallevel = 2
+		vim.opt_local.concealcursor = "" -- show hidden parts when cursor is on them
+	end,
+})
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "markdown" },
+	callback = function()
+		vim.opt.wrap = true
+	end,
+})

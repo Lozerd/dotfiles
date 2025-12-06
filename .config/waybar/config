@@ -21,7 +21,7 @@
         "temperature",
         "backlight",
         "keyboard-state",
-        "sway/language",
+        "hyprland/language",
         "battery",
         "battery#bat2",
         "tray",
@@ -40,13 +40,17 @@
         },
     },
     "keyboard-state": {
-        "numlock": true,
+        "numlock": false,
         "capslock": true,
-        "format": " {name} {icon}",
+        "format": " {name} {icon} ",
         "format-icons": {
             "locked": "",
             "unlocked": ""
         }
+    },
+    "hyprland/language": {
+        "format-en": "EN(US)",
+        "format-ru": "RU"
     },
     "hyprland/submap": {
         "format": "<span style=\"italic\">{}</span>"
@@ -64,7 +68,7 @@
     },
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "{:%d %B %H:%M}",
+        "format": "{:%d %b %a %H:%M}",
         "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
@@ -144,8 +148,7 @@
     "custom/launcher":{
         "format": "",
         "on-click": "wofi --show run",
-        // "on-click": "rofi -show dmenu -theme ~/.config/rofi/sway/sway_config.rasi",
-        "on-click-right": "killall rofi"
+        "on-click-right": "killall wofi"
     },
     "custom/power":{
         "format": "",

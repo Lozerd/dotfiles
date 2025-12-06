@@ -21,7 +21,7 @@ return {
 	opts = {
 		formatters_by_ft = {
 			lua = { "stylua" },
-			python = { "autopep8", "ruff_fix" },
+			python = { "ruff_fix", "black" },
 			json = { "jq" },
 			sql = { "sqlfmt" },
 			html = { "djlint" },
@@ -39,12 +39,15 @@ return {
 					"include,if,for,comment",
 					"--max-attribute-length",
 					"120",
-                    "--custom-blocks",
-                    "recursetree, endrecursetree",
+					"--custom-blocks",
+					"recursetree, endrecursetree",
 					"--profile",
 					"django",
 					"--quiet",
 				},
+			},
+			black = {
+				append_args = { "--line-length", "100" },
 			},
 			-- Deprecated/invalid?
 			-- flake8 = {

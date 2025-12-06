@@ -3,7 +3,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		local opts = { buffer = args.buf, remap = false }
 		local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
 		local ks = vim.keymap.set
-		local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
 
 		vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
         -- stylua: ignore start
@@ -66,7 +65,8 @@ vim.diagnostic.config({
 })
 
 vim.lsp.enable({
-	"basedpyright",
+    -- "basedpyright",
+    "pyrefly",
 	"pylsp",
 	"lua_ls",
 	"ts_ls",

@@ -52,6 +52,7 @@ return {
 		------------------------
 
 		dap.listeners.after.event_initialized["dapui_config"] = function()
+			dapui.close()
 			dapui.open({ layout = 2 })
 		end
 
@@ -159,10 +160,19 @@ return {
 			return "--settings=" .. dsm_path
 		end
 
+		local pythonPath = vim.fn.getenv("PYTHONPATH")
+		local interperterPath = vim.fn.getcwd() .. "/env/bin/python"
+
+		if vim.fn.empty(pythonPath) and vim.fn.filereadable(interperterPath) == 1 then
+			pythonPath = interperterPath
+		else
+			pythonPath = "/usr/bin/python"
+		end
+
 		local default_nvim_dap_python_opts = {
 			include_configs = true,
 			console = "integratedTerminal",
-			pythonPath = vim.fn.getcwd() .. "/env/bin/python",
+			pythonPath = pythonPath,
 			justMyCode = false,
 		}
 
@@ -188,8 +198,44 @@ return {
 					-- to enable django's autoreload, need to install debugpy
 					-- directly into django's venv
 					"--noreload",
-					get_dsm(),
+                    "--settings", "simple_backend.local_settings"
+                    -- get_dsm(),
 				},
+			},
+			{
+				type = "python",
+				request = "launch",
+				name = "Django tests",
+				pythonPath = vim.fn.getcwd() .. "/env/bin/python",
+				program = vim.fn.getcwd() .. "/manage.py",
+				django = true,
+				console = "integratedTerminal",
+				justMyCode = default_nvim_dap_python_opts.justMyCode,
+				args = function()
+					local test_name = vim.fn.input("Test name: ")
+					local settings_module = vim.fn.input("Settings module: ")
+                    vim.notify(vim.inspect({ test_name, settings_module, vim.fn.trim(settings_module) }))
+
+					if vim.fn.trim(settings_module) == "" then
+						local dsm = get_dsm()
+
+						if dsm ~= nil then
+							settings_module = dsm
+						end
+					end
+
+					local settings = ""
+					if settings_module ~= "" then
+						settings = "--settings=" .. settings_module
+					end
+
+                    vim.notify(vim.inspect({ "test", test_name, settings, "--no-input" }))
+					return { "test", test_name, settings, "--no-input" }
+				end,
+				-- args = vim.split(
+				-- 	"test images.clients.awesome_business.import_data.tests.test_import_stores.Test.test_retail_chain_created_during_import --settings=_dev.local_settings_tests --parallel=8 --no-input",
+				-- 	" "
+				-- ),
 			},
 			{
 				type = "python",

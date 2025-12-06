@@ -10,7 +10,7 @@ return {
 
 		mason.setup()
 		require("mason-tool-installer").setup({
-			ensure_installed = { "stylua", "lua_ls", "pylsp", "basedpyright", "ts_ls", "cssls" },
+			ensure_installed = { "stylua", "lua_ls", "pylsp", "basedpyright", "ruff", "ts_ls", "cssls" },
 			automatic_installation = true,
 		})
 
