@@ -12,7 +12,7 @@ vim.opt.smartindent = true
 
 -- Search options
 vim.opt.smartcase = true
-vim.opt.ignorecase = true -- Experimental
+-- vim.opt.ignorecase = true -- Experimental
 
 vim.opt.wrap = false
 

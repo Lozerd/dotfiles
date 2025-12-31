@@ -7,6 +7,9 @@ export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin/:$PATH
 # Golang manual installation
 export PATH=$PATH::/usr/local/go/bin
 
+# Zig manual installation
+export PATH=$PATH::$HOME/Software/zig/
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export PAGER=less

@@ -47,7 +47,12 @@ return {
 				},
 			},
 			black = {
-				append_args = { "--line-length", "100" },
+				append_args = {
+					"--target-version",
+					"py312",
+					"--line-length",
+					"100",
+				},
 			},
 			-- Deprecated/invalid?
 			-- flake8 = {

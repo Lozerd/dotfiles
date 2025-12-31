@@ -8,7 +8,14 @@
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'qmlls' },
-  filetypes = { 'qml', 'qmljs' },
-  root_markers = { '.git' },
+	cmd = { "qmlls" },
+	filetypes = { "qml", "qmljs" },
+	root_markers = { ".git" },
+	init_options = {
+		qmlImportPaths = { vim.fn.getcwd() },
+	},
+	on_init = function(client)
+		-- Force qmlls to re-read environment so it sees our imports
+		client.notify("qmlls/enableTypeInfo", { enable = true })
+	end,
 }

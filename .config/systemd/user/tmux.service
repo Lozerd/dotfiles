@@ -14,4 +14,4 @@ KillMode=control-group
 RestartSec=2
 
 [Install]
-WantedBy=default.target
+WantedBy=display-manager.service

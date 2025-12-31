@@ -16,6 +16,7 @@
         "custom/updater",
         "pulseaudio",
         "network",
+        "custom/vpn",
         "cpu",
         "memory",
         "temperature",
@@ -113,6 +114,12 @@
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "on-click-right": "bash ~/.config/rofi/wifi_menu/rofi_wifi_menu"
+    },
+    "custom/vpn": {
+        "exec": "systemctl list-units --type=service --state=active | grep -q 'awg-quick@' && echo '󰖂 VPN' || echo '󰖃 VPN'",
+        "interval": 5,
+        "on-click": "sudo /usr/local/bin/awg-toggle",
+        "tooltip": true
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float

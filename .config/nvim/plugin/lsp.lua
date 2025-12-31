@@ -72,6 +72,8 @@ vim.lsp.enable({
 	"ts_ls",
 	"djlsp",
 	"golsp",
+    "zls",
 	"clangd",
 	"ruff",
+    "qmlls",
 })
