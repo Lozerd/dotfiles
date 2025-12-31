@@ -113,8 +113,6 @@ window#waybar.hidden {
     color: black;
     border-radius: 0px 20px 20px 0px;
     padding-top: 1px;
-    margin-right: 4px;
-
 }
 
 #battery {
@@ -177,6 +175,21 @@ label:focus {
     background-image: linear-gradient(45deg, #2BD2FF 0%, #2BD2FF 52%, #2BD2FF 90%);
     color: black;
 }
+
+#custom-vpn {
+    background-color: #FA8BFF;
+    background-image: linear-gradient(45deg, #2BD2FF 0%, #2BD2FF 52%, #2BD2FF 90%);
+    padding: 0 10px;
+}
+
+#custom-vpn.on {
+    color: #cd17e6;
+}
+
+#custom-vpn.off {
+    color: black;
+}
+
 
 #network.disconnected {
     background-color: #FA8BFF;
@@ -294,6 +307,7 @@ label:focus {
     background-image: linear-gradient(45deg, #2BD2FF 0%, #2BD2FF 52%, #2BD2FF 90%);
     color: black;
     min-width: 16px;
+    padding-left: 10px;
 }
 
 #keyboard-state {

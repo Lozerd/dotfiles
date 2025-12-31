@@ -1,0 +1,39 @@
+#!/bin/bash
+
+set -eou pipefail
+
+usage() {
+    echo "Run Django tests"
+    echo "Usage: $0 <test_path> --settings=<settings> [FLAGS]"
+    echo "  test_path: path to test file or directory"
+    echo "  settings: settings module to use"
+    echo "  FLAGS: any other flags to pass to the test command"
+    exit 1
+}
+
+TEST_PATH="."
+SETTINGS="${DJANGO_SETTINGS_MODULE:-}"
+FLAGS="--no-input"
+
+while test $# -gt 0; do
+    case "$1" in
+        -h|--help)
+            usage
+            ;;
+        --settings=*)
+            SETTINGS="${1#*=}"
+            shift
+            ;;
+        --*)
+            FLAGS="$FLAGS $1"
+            shift
+            ;;
+        *)
+            TEST_PATH="$1"
+            shift
+            ;;
+    esac
+done
+
+
+python manage.py test $TEST_PATH --settings=$SETTINGS $FLAGS

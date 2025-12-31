@@ -16,12 +16,13 @@
         "custom/updater",
         "pulseaudio",
         "network",
+        "custom/vpn",
         "cpu",
         "memory",
         "temperature",
         "backlight",
         "keyboard-state",
-        "sway/language",
+        "hyprland/language",
         "battery",
         "battery#bat2",
         "tray",
@@ -40,13 +41,17 @@
         },
     },
     "keyboard-state": {
-        "numlock": true,
+        "numlock": false,
         "capslock": true,
-        "format": " {name} {icon}",
+        "format": " {name} {icon} ",
         "format-icons": {
             "locked": "",
             "unlocked": ""
         }
+    },
+    "hyprland/language": {
+        "format-en": "EN(US)",
+        "format-ru": "RU"
     },
     "hyprland/submap": {
         "format": "<span style=\"italic\">{}</span>"
@@ -64,6 +69,7 @@
     },
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "{:%d %b %a %H:%M}",
         "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
@@ -109,6 +115,12 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "on-click-right": "bash ~/.config/rofi/wifi_menu/rofi_wifi_menu"
     },
+    "custom/vpn": {
+        "exec": "systemctl list-units --type=service --state=active | grep -q 'awg-quick@' && echo '󰖂 VPN' || echo '󰖃 VPN'",
+        "interval": 5,
+        "on-click": "sudo /usr/local/bin/awg-toggle",
+        "tooltip": true
+    },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon}",
@@ -143,12 +155,11 @@
     "custom/launcher":{
         "format": "",
         "on-click": "wofi --show run",
-        // "on-click": "rofi -show dmenu -theme ~/.config/rofi/sway/sway_config.rasi",
-        "on-click-right": "killall rofi"
+        "on-click-right": "killall wofi"
     },
     "custom/power":{
         "format": "",
-        "on-click": "bash ~/.config/waybar/powermenu.sh",
+        "on-click": "~/.config/hypr/scripts/custom-exit",
         "on-click-right": "killall rofi"
     },
     "custom/updater":{

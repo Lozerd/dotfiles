@@ -1,0 +1,122 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+###############################################################################
+# Resolve all unresolved, resolvable notes in a GitLab merge request
+#
+# Usage:
+#   resolve_notes.sh --host <gitlab_host> \
+#                    --project <project_id> \
+#                    --merge-request <mr_id>
+#   OR
+#   resolve_notes.sh --url <merge_request_url>
+#
+# Example URL:
+#   https://gitlab.example.com/group/project/-/merge_requests/12345
+###############################################################################
+
+# ----------------------------- Configuration ---------------------------------
+GL_HOST=""
+PROJECT_ID=""
+MERGE_REQUEST_ID=""
+
+# ------------------------------ Functions ------------------------------------
+
+usage() {
+    cat <<EOF
+Usage:
+  $0 --host <gitlab_host> --project <project_id> --merge-request <mr_id>
+  OR
+  $0 --url <merge_request_url>
+
+Options:
+  -h, --host             GitLab base URL (e.g. https://gitlab.example.com)
+  -p, --project          GitLab project ID
+  -m, --merge-request    Merge request ID
+  -u, --url              Full merge request URL (overrides host/project/mr)
+EOF
+}
+
+die() {
+    echo "ERROR: $*" >&2
+    exit 1
+}
+
+parse_url() {
+    local url="$1"
+
+    # Extract host
+    GL_HOST=$(echo "$url" | sed -E 's|^(https?://[^/]+)/.*|\1|')
+
+    # Extract project path (group/project)
+    PROJECT_PATH=$(echo "$url" | sed -E 's|https?://[^/]+/(.+)/-/merge_requests/[0-9]+|\1|')
+
+    # Extract merge request ID
+    MERGE_REQUEST_ID=$(echo "$url" | sed -E 's|.*/merge_requests/([0-9]+)|\1|')
+
+    # URL-encode project path for API (replace / with %2F)
+    PROJECT_ID=$(echo "$PROJECT_PATH" | sed 's|/|%2F|g')
+}
+
+# --------------------------- Argument Parsing --------------------------------
+
+while (($#)); do
+    case "$1" in
+        -h|--host)
+            GL_HOST="$2"
+            shift 2
+            ;;
+        -p|--project)
+            PROJECT_ID="$2"
+            shift 2
+            ;;
+        -m|--merge-request)
+            MERGE_REQUEST_ID="$2"
+            shift 2
+            ;;
+        -u|--url)
+            parse_url "$2"
+            shift 2
+            ;;
+        --help)
+            usage
+            exit 0
+            ;;
+        *)
+            die "Unknown argument: $1"
+            ;;
+    esac
+done
+
+# ---------------------------- Validation -------------------------------------
+
+[[ -n "$GL_HOST" ]]            || die "GitLab host is not set"
+[[ -n "$PROJECT_ID" ]]         || die "Project ID is not set"
+[[ -n "$MERGE_REQUEST_ID" ]]   || die "Merge request ID is not set"
+
+# ----------------------------- Main Logic ------------------------------------
+
+curl \
+    --silent \
+    --fail \
+    -H "Content-Type: application/json" \
+    "$GL_HOST/api/v4/projects/$PROJECT_ID/merge_requests/$MERGE_REQUEST_ID/discussions" |
+jq -r '
+    .[]
+    | . as $discussion
+    | $discussion.notes[]
+    | select(.resolvable and (.resolved | not))
+    | "\($discussion.id)\t\(.id)"
+' |
+while IFS=$'\t' read -r DISCUSSION_ID NOTE_ID; do
+    echo "Resolving note $NOTE_ID in discussion $DISCUSSION_ID (MR $MERGE_REQUEST_ID)"
+
+    curl \
+        --silent \
+        --fail \
+        -X PUT \
+        -H "Content-Type: application/json" \
+        -d '{"resolved": true}' \
+        "$GL_HOST/api/v4/projects/$PROJECT_ID/merge_requests/$MERGE_REQUEST_ID/discussions/$DISCUSSION_ID/notes/$NOTE_ID"
+done

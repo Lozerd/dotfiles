@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/projects ~/ -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find ~/projects/inspector ~/projects/coffeestudio ~/projects/local ~/projects ~/ -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then
@@ -20,10 +20,6 @@ fi
 
 if ! tmux has-session -t=$selected_name 2> /dev/null; then
     tmux new-session -ds $selected_name -c $selected
-<<<<<<< HEAD
-fi
-
-=======
 
     source ~/.local/bin/activate_python_env
 
@@ -32,6 +28,4 @@ fi
 fi
 
 
-
->>>>>>> b705eb5 (feat(nvim, hypr, tmux): introduce ghostty, fzf-lua opts)
 tmux switch-client -t $selected_name
