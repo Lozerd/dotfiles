@@ -117,6 +117,7 @@
     },
     "custom/vpn": {
         "exec": "systemctl list-units --type=service --state=active | grep -q 'awg-quick@' && echo '󰖂 VPN' || echo '󰖃 VPN'",
+        "on-hover": "systemctl list-units --type=service --state=active | grep -q 'awg-quick@' && echo '󰖂 VPN' || echo '󰖃 VPN'",
         "interval": 5,
         "on-click": "sudo /usr/local/bin/awg-toggle",
         "tooltip": true
